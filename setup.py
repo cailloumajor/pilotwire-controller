@@ -15,4 +15,13 @@ setup_args = dict(
     packages=find_packages()
 )
 
+if os.getenv('PYBUILD_NAME'):
+    setup_args.update(
+        entry_points={
+            'console_scripts': [
+                "pwcontrollerd = pilotwire_controller.server:main",
+            ],
+        }
+    )
+
 setup(**setup_args)
