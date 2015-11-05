@@ -1,0 +1,76 @@
+#!/usr/bin/make -f
+# -*- Makefile -*-
+
+DEBBUILDDIR = $(HOME)/debian-build/$(source_name)
+SBUILDOPTS = --debbuildopts='-i -I' --arch=armhf --dist=jessie --arch-all --no-source
+REMOTE := $(firstword $(shell cat debian/deploy_host))
+
+mydir := $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
+source_name := $(shell dpkg-parsechangelog --show-field Source)
+
+debver := $(shell dpkg-parsechangelog --show-field Version)
+debver_file = $(DEBBUILDDIR)/debian_version
+
+dsc_file = $(DEBBUILDDIR)/$(source_name)_$(debver).dsc
+
+changes_file = $(DEBBUILDDIR)/$(source_name)_$(debver)_armhf.changes
+
+deb_git_tag = .git/refs/tags/debian/$(debver)
+
+
+ifndef REMOTE
+  $(error No remote host declared in debian/deploy_host file)
+endif
+
+
+.PHONY: default clear update_debian_version buildsource builddeb tag send
+
+default:
+	@echo 'No target given, doing nothing !'
+	@echo 'Available targets :'
+	@echo '  clear          - Remove building directory'
+	@echo '  buildsource    - Build Debian source package'
+	@echo '  builddeb       - Build Debian binary package'
+	@echo '  tag            - Tag Git tree with Debian version'
+	@echo '  send           - Upload Debian package to remote apt archive'
+
+clear:
+	@read -p "Are you sure you want to remove $(DEBBUILDDIR)? [yes] " -r RESP; \
+	[ "$$RESP" = "yes" ] && ( $(RM) -r $(DEBBUILDDIR) \
+	&& echo '** Building directory deleted **\n' ) || true
+
+$(DEBBUILDDIR):
+	@echo '** Creating directory : $@ **'
+	mkdir -p $@
+	@echo
+
+$(debver_file): update_debian_version | $(DEBBUILDDIR)
+	@[ -f $@ ] || touch $@
+	@echo $(debver) | cmp -s $@ - || ( echo $(debver) > $@ \
+	&& echo '** Debian version file updated **\n' )
+
+$(dsc_file): $(debver_file) | $(DEBBUILDDIR)
+	@echo '** Building Debian source package : $@ **'
+	cd $(DEBBUILDDIR) && dpkg-source -b $(mydir)
+	@echo
+
+buildsource: $(dsc_file)
+
+$(changes_file): $(dsc_file) | $(DEBBUILDDIR)
+	@echo '** Building Debian binary packages **'
+	cd $(DEBBUILDDIR) && sbuild $(SBUILDOPTS) $<
+	@echo
+
+builddeb: $(changes_file)
+
+$(deb_git_tag): $(changes_file)
+	@echo '** Tagging Debian version in Git **'
+	gbp buildpackage --git-tag-only
+	@echo
+
+tag: $(deb_git_tag)
+
+send: $(changes_file) | $(deb_git_tag)
+	@echo '** Sending binary packages to remote ($(REMOTE)) **'
+	dput $(REMOTE) $<
+	@echo
