@@ -1,10 +1,13 @@
 # -*- coding: utf-8 -*-
 
+import abc
+
 
 ZONES = [1, 2, 3, 4]
 
 
-class BaseController(object):
+class BaseController(metaclass=abc.ABCMeta):
+    """Base pilotwire controller class"""
 
     modes_out = {
         'C': '00',
@@ -15,6 +18,9 @@ class BaseController(object):
 
     @property
     def modes_dict(self):
+        """Get or set controller modes dictionary,
+        converting from or to output value.
+        """
         output_integer = self.output_value
         rev_modes_out = {v: k for k, v in self.modes_out.items()}
         def get_bit_pair(integer, position):
@@ -37,6 +43,17 @@ class BaseController(object):
             for n, m in zones_modes
         ]
         self.output_value = sum(zones_int)
+
+    @property
+    @abc.abstractmethod
+    def output_value(self):
+        """Get or set controller output value (integer type)"""
+        pass
+
+    @output_value.setter
+    @abc.abstractmethod
+    def output_value(self, val):
+        pass
 
     def getModes(self):
         return self.modes_dict
