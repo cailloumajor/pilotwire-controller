@@ -15,14 +15,17 @@ class BaseController(object):
 
     @property
     def modes_dict(self):
+        output_integer = self.output_value
         rev_modes_out = {v: k for k, v in self.modes_out.items()}
-        shift = lambda x: (x - 1) * 2
+        def get_bit_pair(integer, position):
+            """Get a bit pair string from an integer,
+            given the pair position.
+            """
+            shift = (position - 1) * 2
+            integer_bitpair = (integer & (0b11 << shift)) >> shift
+            return '{:02b}'.format(integer_bitpair)
         return {
-            str(z): rev_modes_out.get(
-                bin(
-                    (self.output_value & (3 << shift(z))) >> (shift(z))
-                ).split('b')[-1].zfill(2)
-            )
+            str(z): rev_modes_out.get(get_bit_pair(output_integer, z))
             for z in ZONES
         }
 
