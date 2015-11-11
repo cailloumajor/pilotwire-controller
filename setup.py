@@ -12,7 +12,8 @@ setup_args = dict(
     author="Arnaud Rocher",
     author_email='arnaud.roche3@gmail.com',
     license='GPLv3+',
-    packages=find_packages()
+    packages=find_packages(exclude=['*.tests']),
+    test_suite='pilotwire_controller.tests'
 )
 
 if os.getenv('PYBUILD_NAME'):
