@@ -4,7 +4,7 @@ import os
 from setuptools import setup, find_packages
 
 
-setup_args = dict(
+setup(
     name='pilotwire-controller',
     version='0.1.0',
     description="Electrical heaters driving controller",
@@ -15,14 +15,3 @@ setup_args = dict(
     packages=find_packages(exclude=['*.tests']),
     test_suite='pilotwire_controller.tests'
 )
-
-if os.getenv('PYBUILD_NAME'):
-    setup_args.update(
-        entry_points={
-            'console_scripts': [
-                "pwcontrollerd = pilotwire_controller.server:main",
-            ],
-        }
-    )
-
-setup(**setup_args)
