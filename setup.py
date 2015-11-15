@@ -13,5 +13,6 @@ setup(
     author_email='arnaud.roche3@gmail.com',
     license='GPLv3+',
     packages=find_packages(exclude=['*.tests']),
-    test_suite='pilotwire_controller.tests'
+    test_suite='pilotwire_controller.tests',
+    tests_require=['pifacedigitalio', 'pifacecommon']
 )
