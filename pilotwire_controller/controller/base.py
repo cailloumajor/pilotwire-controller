@@ -54,15 +54,3 @@ class BaseController(metaclass=abc.ABCMeta):
     @abc.abstractmethod
     def output_value(self, val):
         pass
-
-    def getModes(self):
-        return self.modes_dict
-
-    def setModes(self, modes_dict):
-        if not isinstance(modes_dict, dict):
-            raise TypeError("setModes: bad argument type (dict expected)")
-        self.modes_dict = modes_dict
-        return self.modes_dict
-
-    def test(self):
-        return True

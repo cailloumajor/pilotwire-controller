@@ -14,5 +14,18 @@ setup(
     license='GPLv3+',
     packages=find_packages(exclude=['*.tests']),
     test_suite='pilotwire_controller.tests',
-    tests_require=['pifacedigitalio', 'pifacecommon']
+    tests_require=['pifacedigitalio', 'pifacecommon'],
+    install_requires=['stevedore'],
+    extras_require={
+        'PiFaceDigital': ['pifacedigitalio', 'pifacecommon'],
+    },
+    entry_points={
+        'console_scripts': [
+            "pwcontrollerd = pilotwire_controller.server:main",
+        ],
+        'pilotwire.controller': [
+            ("piface = pilotwire_controller.controller.piface:PiFaceController "
+             "[PiFaceDigital]"),
+        ],
+    },
 )
