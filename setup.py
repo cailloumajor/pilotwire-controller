@@ -26,6 +26,7 @@ setup(
         'pilotwire.controller': [
             ("piface = pilotwire_controller.controller.piface:PiFaceController "
              "[PiFaceDigital]"),
+            "test = pilotwire_controller.tests.utils:TestingController",
         ],
     },
 )
