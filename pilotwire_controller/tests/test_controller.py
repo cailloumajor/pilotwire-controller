@@ -3,21 +3,8 @@
 from unittest import TestCase
 from unittest.mock import patch, PropertyMock
 
-from .utils import TestingController
+from .utils import TestingController, output_to_modes, modes_to_output
 from ..controller.piface import PiFaceController
-
-
-output_to_modes = (
-    (0,           {'1':'C', '2':'C', '3':'C', '4':'C'}),
-    (0b10011100 , {'1':'C', '2':'E', '3':'H', '4':'A'}),
-    (0b100000000, {'1':'C', '2':'C', '3':'C', '4':'C'}),
-)
-
-modes_to_output = (
-    ({}, 0),
-    ({'1':'C', '2':'E', '3':'H', '4':'A'}, 0b10011100),
-    ({'4':'E', 'X':'Z'}, 0b11000000),
-)
 
 
 class TestBaseController(TestCase):
