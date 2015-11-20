@@ -1,2 +1,0 @@
-# Only include master branch when building source package
-git-ref = master
