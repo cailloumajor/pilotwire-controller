@@ -27,12 +27,13 @@ class PilotwireServer:
 
     def __init__(self, port, debug, controller_name):
         self.xmlrpc_server = SimpleXMLRPCServer(('', port), logRequests=debug)
-        self.controller = driver.DriverManager(
+        manager = driver.DriverManager(
             namespace='pilotwire.controller',
             name=controller_name,
             invoke_on_load=True,
             verify_requirements=True,
         )
+        self.controller = manager.driver
         self.xmlrpc_server.register_instance(XMLRPCMethods(self.controller))
 
     def start(self):
