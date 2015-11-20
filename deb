@@ -3,7 +3,7 @@
 
 DEBBUILDDIR = $(HOME)/debian-build/$(source_name)
 SBUILDOPTS = --debbuildopts='-i -I' --arch=armhf --dist=jessie --arch-all --no-source
-REMOTE := $(firstword $(shell cat debian/deploy_host))
+REMOTE := $(firstword $(shell cat deb_deploy_host))
 
 mydir := $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
 source_name := $(shell dpkg-parsechangelog --show-field Source)
@@ -19,7 +19,7 @@ deb_git_tag = .git/refs/tags/debian/$(debver)
 
 
 ifndef REMOTE
-  $(error No remote host declared in debian/deploy_host file)
+  $(error No remote host declared in deb_deploy_host file)
 endif
 
 
