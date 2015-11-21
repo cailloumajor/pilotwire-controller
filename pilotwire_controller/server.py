@@ -1,36 +1,55 @@
-#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 import sys
-import pifacedigitalio
+import argparse
 from xmlrpc.server import SimpleXMLRPCServer
 
-from . import BaseController
+from stevedore import driver
 
 
-XMLRPC_PORT = 8888
+class XMLRPCMethods:
+
+    def __init__(self, controller):
+        self.controller = controller
+
+    def getModes(self):
+        return self.controller.modes_dict
+
+    def setModes(self, modes_dict):
+        self.controller.modes_dict = modes_dict
+        return self.controller.modes_dict
+
+    def test(self):
+        return True
 
 
-class Controller(BaseController):
+class PilotwireServer:
 
-    def __init__(self):
-        self._piface = pifacedigitalio.PiFaceDigital()
-        self._piface.output_port.all_off()
+    def __init__(self, port, debug, controller_name):
+        self.xmlrpc_server = SimpleXMLRPCServer(('', port), logRequests=debug)
+        manager = driver.DriverManager(
+            namespace='pilotwire.controller',
+            name=controller_name,
+            invoke_on_load=True,
+            verify_requirements=True,
+        )
+        self.controller = manager.driver
+        self.xmlrpc_server.register_instance(XMLRPCMethods(self.controller))
 
-    @property
-    def output_value(self):
-        return self._piface.output_port.value
+    def start(self):
+        self.xmlrpc_server.serve_forever()
 
-    @output_value.setter
-    def output_value(self, val):
-        self._piface.output_port.value = val
+    def stop(self):
+        self.xmlrpc_server.shutdown()
+        self.xmlrpc_server.server_close()
 
 
 def main():
-    server = SimpleXMLRPCServer(('', XMLRPC_PORT))
-    server.register_instance(Controller())
-    server.serve_forever()
-
-
-if __name__ == '__main__':
-    sys.exit(main())
+    parser = argparse.ArgumentParser("Pilotwire controller server")
+    parser.add_argument('-d', dest='debug', action='store_true',
+                        help="output debugging messages (eg. XML-RPC requests)")
+    parser.add_argument('-p', dest='port', default=8888, type=int,
+                        help="port number on which listen")
+    args = parser.parse_args()
+    server = PilotwireServer(args.port, args.debug, 'piface')
+    sys.exit(server.start())
