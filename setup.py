@@ -6,7 +6,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='pilotwire-controller',
-    version='0.2.0',
+    version='0.2.1',
     description="Electrical heaters driving controller",
     url='https://github.com/cailloumajor/home-web',
     author="Arnaud Rocher",
