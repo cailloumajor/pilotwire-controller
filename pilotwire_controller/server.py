@@ -2,6 +2,7 @@
 
 import sys
 import argparse
+import logging
 from xmlrpc.server import SimpleXMLRPCServer
 
 from stevedore import driver
@@ -44,12 +45,24 @@ class PilotwireServer:
         self.xmlrpc_server.server_close()
 
 
+def _init_logging(debug):
+    lvl = 'DEBUG' if debug else 'INFO'
+    logger = logging.getLogger('stevedore')
+    logger.setLevel(lvl)
+    handler = logging.StreamHandler()
+    handler.setLevel(lvl)
+    logger.addHandler(handler)
+
+
 def main():
-    parser = argparse.ArgumentParser("Pilotwire controller server")
+    parser = argparse.ArgumentParser(description="Pilotwire controller server")
     parser.add_argument('-d', dest='debug', action='store_true',
                         help="output debugging messages (eg. XML-RPC requests)")
     parser.add_argument('-p', dest='port', default=8888, type=int,
                         help="port number on which listen")
     args = parser.parse_args()
+
+    _init_logging(args.debug)
+
     server = PilotwireServer(args.port, args.debug, 'piface')
     sys.exit(server.start())
