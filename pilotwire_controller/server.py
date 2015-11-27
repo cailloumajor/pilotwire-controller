@@ -45,7 +45,7 @@ class PilotwireServer:
 
 
 def main():
-    parser = argparse.ArgumentParser("Pilotwire controller server")
+    parser = argparse.ArgumentParser(description="Pilotwire controller server")
     parser.add_argument('-d', dest='debug', action='store_true',
                         help="output debugging messages (eg. XML-RPC requests)")
     parser.add_argument('-p', dest='port', default=8888, type=int,
