@@ -54,7 +54,7 @@ def _init_logging(debug):
     logger.addHandler(handler)
 
 
-def main():
+def main(controller_type='piface'):
     import atexit
 
     parser = argparse.ArgumentParser(description="Pilotwire controller server")
@@ -66,8 +66,12 @@ def main():
 
     _init_logging(args.debug)
 
-    server = PilotwireServer(args.port, args.debug, 'piface')
+    server = PilotwireServer(args.port, args.debug, controller_type)
 
     atexit.register(server.stop)
 
     server.start()
+
+
+if __name__ == '__main__':
+    sys.exit(main('test'))
