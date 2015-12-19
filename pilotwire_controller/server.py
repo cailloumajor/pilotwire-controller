@@ -55,6 +55,8 @@ def _init_logging(debug):
 
 
 def main():
+    import atexit
+
     parser = argparse.ArgumentParser(description="Pilotwire controller server")
     parser.add_argument('-d', dest='debug', action='store_true',
                         help="output debugging messages (eg. XML-RPC requests)")
@@ -65,4 +67,7 @@ def main():
     _init_logging(args.debug)
 
     server = PilotwireServer(args.port, args.debug, 'piface')
-    sys.exit(server.start())
+
+    atexit.register(server.stop)
+
+    server.start()
