@@ -7,6 +7,8 @@ from xmlrpc.server import SimpleXMLRPCServer
 
 from stevedore.driver import DriverManager
 
+from .zeroconf import ServiceDiscoveryServer
+
 
 class XMLRPCMethods:
 
@@ -67,9 +69,12 @@ def main(controller_type='piface'):
     _init_logging(args.debug)
 
     server = PilotwireServer(args.port, args.debug, controller_type)
+    zeroconf = ServiceDiscoveryServer(args.port)
 
     atexit.register(server.stop)
+    atexit.register(zeroconf.stop)
 
+    zeroconf.start()
     server.start()
 
 
