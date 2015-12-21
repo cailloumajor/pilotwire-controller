@@ -49,11 +49,12 @@ class PilotwireServer:
 
 def _init_logging(debug):
     lvl = 'DEBUG' if debug else 'INFO'
-    logger = logging.getLogger('stevedore')
-    logger.setLevel(lvl)
-    handler = logging.StreamHandler()
-    handler.setLevel(lvl)
-    logger.addHandler(handler)
+    for logger_name in ('stevedore', 'zeroconf'):
+        logger = logging.getLogger(logger_name)
+        logger.setLevel(lvl)
+        handler = logging.StreamHandler()
+        handler.setLevel(lvl)
+        logger.addHandler(handler)
 
 
 def main(controller_type='piface'):
