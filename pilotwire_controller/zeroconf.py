@@ -38,12 +38,15 @@ class ServiceDiscoveryServer:
 
 class ServiceDiscoveryClient:
 
-    def __init__(self):
+    def __init__(self, service_timeout=None):
         self.zeroconf = Zeroconf()
+        self.service_args = [SRV_TYPE, srv_fqname]
+        if service_timeout:
+            self.service_args.append(service_timeout)
 
     @cached_property_with_ttl(ttl=1.0)
     def info(self):
-        service_info = self.zeroconf.get_service_info(SRV_TYPE, srv_fqname)
+        service_info = self.zeroconf.get_service_info(*self.service_args)
         if not service_info:
             raise ZeroconfServiceNotFound(
                 "Pilotwire Controller Zeroconf service not found"
