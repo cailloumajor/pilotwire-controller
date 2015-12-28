@@ -5,7 +5,7 @@ import argparse
 import logging
 from xmlrpc.server import SimpleXMLRPCServer
 
-from stevedore import driver
+from stevedore.driver import DriverManager
 
 
 class XMLRPCMethods:
@@ -28,7 +28,7 @@ class PilotwireServer:
 
     def __init__(self, port, debug, controller_name):
         self.xmlrpc_server = SimpleXMLRPCServer(('', port), logRequests=debug)
-        manager = driver.DriverManager(
+        manager = DriverManager(
             namespace='pilotwire.controller',
             name=controller_name,
             invoke_on_load=True,
