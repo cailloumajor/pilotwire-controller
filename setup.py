@@ -15,7 +15,7 @@ setup(
     packages=find_packages(exclude=['*.tests']),
     test_suite='pilotwire_controller.tests',
     tests_require=['pifacedigitalio', 'pifacecommon'],
-    install_requires=['stevedore', 'zeroconf'],
+    install_requires=['cached-property', 'stevedore', 'zeroconf'],
     extras_require={
         'PiFaceDigital': ['pifacedigitalio', 'pifacecommon'],
     },
