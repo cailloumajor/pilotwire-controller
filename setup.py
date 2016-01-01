@@ -21,7 +21,7 @@ setup(
     },
     entry_points={
         'console_scripts': [
-            "pwcontrollerd = pilotwire_controller.server:main",
+            "pwcontrollerd = pilotwire_controller.daemon:main",
         ],
         'pilotwire.controller': [
             ("piface = pilotwire_controller.controller.piface:PiFaceController "
