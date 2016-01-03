@@ -6,7 +6,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='pilotwire-controller',
-    version='0.2.2',
+    version='0.3.0',
     description="Electrical heaters driving controller",
     url='https://github.com/cailloumajor/home-web',
     author="Arnaud Rocher",
@@ -15,13 +15,13 @@ setup(
     packages=find_packages(exclude=['*.tests']),
     test_suite='pilotwire_controller.tests',
     tests_require=['pifacedigitalio', 'pifacecommon'],
-    install_requires=['stevedore'],
+    install_requires=['cached-property', 'stevedore', 'zeroconf'],
     extras_require={
         'PiFaceDigital': ['pifacedigitalio', 'pifacecommon'],
     },
     entry_points={
         'console_scripts': [
-            "pwcontrollerd = pilotwire_controller.server:main",
+            "pwcontrollerd = pilotwire_controller.daemon:main",
         ],
         'pilotwire.controller': [
             ("piface = pilotwire_controller.controller.piface:PiFaceController "
