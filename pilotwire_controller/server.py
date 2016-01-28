@@ -29,7 +29,6 @@ class PilotwireServer:
             namespace='pilotwire.controller',
             name=controller_name,
             invoke_on_load=True,
-            verify_requirements=True,
         )
         self.controller = manager.driver
         self.xmlrpc_server.register_instance(XMLRPCMethods(self.controller))

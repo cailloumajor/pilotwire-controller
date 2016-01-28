@@ -1,0 +1,6 @@
+# Requirements for using as a Python library (client use only).
+# Must be compiled with pip-compile.
+pbr
+cached-property
+stevedore
+zeroconf
