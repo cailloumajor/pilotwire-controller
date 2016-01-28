@@ -1,4 +1,3 @@
-pbr
-cached-property
-stevedore
-zeroconf
+# Requirements for building Debian package (used by dh-virtualenv).
+-r pbr-requirements.in
+-r piface-reqs.in

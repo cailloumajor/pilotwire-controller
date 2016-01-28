@@ -1,2 +1,2 @@
-pifacecommon
-pifacedigitalio
+# Requirements for testing
+-r piface-reqs.in
