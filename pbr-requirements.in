@@ -2,5 +2,6 @@
 # Must be compiled with pip-compile.
 pbr
 cached-property
+netifaces
 stevedore
 zeroconf
