@@ -2,6 +2,8 @@
 
 import socket
 
+import netifaces
+
 from cached_property import cached_property_with_ttl
 from zeroconf import Zeroconf, ServiceInfo
 
@@ -19,8 +21,10 @@ class ZeroconfServiceNotFound(Exception):
 class ServiceDiscoveryServer:
 
     def __init__(self, port):
+        inet = netifaces.AF_INET
         hostname = socket.gethostname()
-        addr = socket.gethostbyname(hostname)
+        def_gw = netifaces.gateways()['default'][inet][1]
+        addr = netifaces.ifaddresses(def_gw)[inet][0]['addr']
         addr = socket.inet_aton(addr)
         self.zeroconf = Zeroconf()
         self.info = ServiceInfo(
