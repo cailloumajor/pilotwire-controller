@@ -1,5 +1,0 @@
-# Requirements for running as a server with PiFace hardware
-# (Debian package or testing)
-# Must NOT be compiled with pip-compile
-pifacecommon==4.1.2
-pifacedigitalio==3.0.5

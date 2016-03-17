@@ -1,6 +1,8 @@
 # Development requirements.
 # Compiled file is to be passed to 'pip install -r' in a virtualenv.
 # Must be compiled with pip-compile.
--r pbr-requirements.in
+-r requirements.txt
 
+ipython
 pip-tools
+pylint
