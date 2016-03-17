@@ -1,3 +1,7 @@
-# Requirements for building Debian package (used by dh-virtualenv).
--r pbr-requirements.in
--r piface-reqs.in
+# Main pip requirements.
+# Must be compiled with pip-compile.
+pbr
+cached-property
+netifaces
+stevedore
+zeroconf
