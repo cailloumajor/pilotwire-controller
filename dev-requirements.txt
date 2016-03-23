@@ -19,6 +19,8 @@ path.py==8.1.2            # via pickleshare
 pbr==1.8.1
 pexpect==4.0.1            # via ipython
 pickleshare==0.6          # via ipython
+pifacecommon==4.1.2
+pifacedigitalio==3.0.5
 pip-tools==1.6
 ptyprocess==0.5.1         # via pexpect
 py==1.4.31                # via pytest

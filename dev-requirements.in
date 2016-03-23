@@ -4,6 +4,8 @@
 -r requirements.txt
 
 ipython
+pifacecommon
+pifacedigitalio
 pip-tools
 pylint
 pytest
