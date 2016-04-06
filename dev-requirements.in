@@ -9,3 +9,4 @@ pifacedigitalio
 pip-tools
 pylint
 pytest
+tox
