@@ -11,7 +11,9 @@ from zeroconf import Zeroconf, ServiceInfo
 NAME = "Pilotwire Controller"
 SRV_TYPE = '_xml-rpc._tcp.local.'
 
-SRV_FQNAME = '.'.join((NAME, SRV_TYPE))
+
+def srv_fqname():
+    return '.'.join((NAME, SRV_TYPE))
 
 
 class ZeroconfServiceNotFound(Exception):
@@ -28,7 +30,7 @@ class ServiceDiscoveryServer:
         addr = socket.inet_aton(addr)
         self.zeroconf = Zeroconf()
         self.info = ServiceInfo(
-            SRV_TYPE, SRV_FQNAME, addr, port, 0, 0,
+            SRV_TYPE, srv_fqname(), addr, port, 0, 0,
             {}, '{}.local.'.format(hostname)
         )
 
@@ -44,7 +46,7 @@ class ServiceDiscoveryClient:
 
     def __init__(self, service_timeout=None):
         self.zeroconf = Zeroconf()
-        self.service_args = [SRV_TYPE, SRV_FQNAME]
+        self.service_args = [SRV_TYPE, srv_fqname()]
         if service_timeout:
             self.service_args.append(service_timeout)
 

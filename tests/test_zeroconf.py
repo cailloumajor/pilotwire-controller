@@ -1,30 +1,44 @@
 # -*- coding: utf-8 -*-
 
-from socket import gethostname, gethostbyname
-from unittest import TestCase
+import socket
 
-from ..zeroconf import (ServiceDiscoveryClient,
-                        ServiceDiscoveryServer,
-                        ZeroconfServiceNotFound)
+import netifaces
+import pytest
 
-class TestZeroconfDiscovery(TestCase):
+from pilotwire_controller.zeroconf import (ServiceDiscoveryClient,
+                                           ServiceDiscoveryServer,
+                                           ZeroconfServiceNotFound)
 
-    SRV_PORT = 8889
 
-    @classmethod
-    def setUpClass(cls):
-        cls.client = ServiceDiscoveryClient(500)
+SRV_PORT = 8889
 
-    def test_service_not_found(self):
-        self.assertRaises(
-            ZeroconfServiceNotFound, getattr, self.client, 'address')
-        self.assertRaises(
-            ZeroconfServiceNotFound, getattr, self.client, 'port')
 
-    def test_service_properties(self):
-        address = gethostbyname(gethostname())
-        server = ServiceDiscoveryServer(self.SRV_PORT)
-        server.start()
-        self.assertEqual(self.client.address, address)
-        self.assertEqual(self.client.port, str(self.SRV_PORT))
-        server.stop()
+@pytest.fixture
+def client():
+    return ServiceDiscoveryClient(300)
+
+@pytest.yield_fixture
+def server():
+    srv = ServiceDiscoveryServer(SRV_PORT)
+    srv.start()
+    yield srv
+    srv.stop()
+
+@pytest.fixture
+def address():
+    inet = netifaces.AF_INET
+    def_gw = netifaces.gateways()['default'][inet][1]
+    return netifaces.ifaddresses(def_gw)[inet][0]['addr']
+
+
+def test_service_not_found_getting_address(client):
+    with pytest.raises(ZeroconfServiceNotFound):
+        getattr(client, 'address')
+
+def test_service_not_found_getting_port(client):
+    with pytest.raises(ZeroconfServiceNotFound):
+        getattr(client, 'port')
+
+def test_service_properties(server, client, address):
+    assert client.address == address
+    assert client.port, str(SRV_PORT)
