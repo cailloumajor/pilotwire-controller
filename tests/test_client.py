@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+# pylint: disable=protected-access, redefined-outer-name, unused-argument
+# pylint: disable=no-self-use
 
 from multiprocessing import Process
 from types import MethodType

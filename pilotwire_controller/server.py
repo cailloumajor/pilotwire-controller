@@ -18,6 +18,7 @@ class XMLRPCMethods:
         return self.controller.modes_dict
 
     def test(self):
+        # pylint: disable=no-self-use
         return True
 
 

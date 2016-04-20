@@ -61,8 +61,10 @@ class ServiceDiscoveryClient:
 
     @property
     def address(self):
+        # pylint: disable=no-member
         return socket.inet_ntoa(self.info.address)
 
     @property
     def port(self):
+        # pylint: disable=no-member
         return str(self.info.port)

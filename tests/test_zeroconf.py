@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
-
-import socket
+# pylint: disable=protected-access, redefined-outer-name, unused-argument
 
 import netifaces
 import pytest

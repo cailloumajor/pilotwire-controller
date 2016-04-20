@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+# pylint: disable=protected-access, redefined-outer-name, unused-argument
 
 from threading import Thread
 from xmlrpc.client import ServerProxy
@@ -19,7 +20,7 @@ def server():
 
 @pytest.fixture
 def client(server):
-    addr, port = server.xmlrpc_server.socket.getsockname()
+    _, port = server.xmlrpc_server.socket.getsockname()
     return ServerProxy('http://localhost:{}'.format(port))
 
 
