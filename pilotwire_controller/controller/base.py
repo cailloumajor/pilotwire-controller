@@ -48,9 +48,9 @@ class BaseController(metaclass=abc.ABCMeta):
     @abc.abstractmethod
     def output_value(self):
         """Get or set controller output value (integer type)"""
-        pass
+        raise NotImplementedError
 
     @output_value.setter
     @abc.abstractmethod
     def output_value(self, val):
-        pass
+        raise NotImplementedError
