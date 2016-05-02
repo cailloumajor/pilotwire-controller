@@ -1,0 +1,5 @@
+pifacecommon
+pifacedigitalio
+pytest
+pytest-cov
+pytest-pylint

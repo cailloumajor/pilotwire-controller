@@ -2,6 +2,7 @@
 
 import argparse
 import logging
+import sys
 
 from .server import PilotwireServer
 from .zeroconf import ServiceDiscoveryServer
@@ -30,6 +31,8 @@ def run(**kwargs):
     options = DEFAULT_OPTIONS.copy()
     options.update(kwargs)
     if __name__ == '__main__':
+        from . import zeroconf
+        zeroconf.NAME = 'Test'
         options['controller_type'] = 'test'
 
     _init_logging(options['debug'])
@@ -46,15 +49,17 @@ def run(**kwargs):
     server.start()
 
 
-def main():
+def parse_args(args):
     parser = argparse.ArgumentParser(description="Pilotwire controller server")
     parser.add_argument('-d', dest='debug', action='store_true',
                         help="output debugging messages")
     parser.add_argument('-p', dest='port', default=8888, type=int,
                         help="port number on which listen")
-    args = parser.parse_args()
+    return parser.parse_args(args)
 
-    run(**vars(args))
+
+def main():
+    run(**vars(parse_args(sys.argv[1:])))
 
 
 if __name__ == '__main__':

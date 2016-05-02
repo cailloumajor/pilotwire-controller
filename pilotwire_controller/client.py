@@ -2,8 +2,9 @@
 
 import socket
 
-from cached_property import cached_property
 from xmlrpc.client import ServerProxy, Fault as XMLRPCFault
+
+from cached_property import cached_property
 
 from .zeroconf import ServiceDiscoveryClient, ZeroconfServiceNotFound
 
@@ -40,9 +41,7 @@ class ControllerProxy:
         return self._xmlrpc_client.test()
 
     def check_status(self):
-        # if '_xmlrpc_client' in self.__dict__:
-        #     del self._xmlrpc_client
-
+        # pylint: disable=broad-except
         socket.setdefaulttimeout(3)
 
         try:
@@ -53,10 +52,10 @@ class ControllerProxy:
             return 'connection_error'
         except XMLRPCFault:
             return 'xml-rpc_error'
-        except:
+        except Exception:
             return 'unknown_error'
         else:
-            if result == True:
+            if result is True:
                 return 'active'
             else:
                 return 'unknown_status'
