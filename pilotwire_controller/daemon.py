@@ -31,6 +31,8 @@ def run(**kwargs):
     options = DEFAULT_OPTIONS.copy()
     options.update(kwargs)
     if __name__ == '__main__':
+        from . import zeroconf
+        zeroconf.NAME = 'Test'
         options['controller_type'] = 'test'
 
     _init_logging(options['debug'])
