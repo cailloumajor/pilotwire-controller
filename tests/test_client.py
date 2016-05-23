@@ -44,21 +44,21 @@ def client(server):
 class TestControllerProxyProperties:
 
     def test_modes_getter(self, client):
-        expected = {'1':'C', '2':'C', '3':'C', '4':'C'}
+        expected = {'1': 'C', '2': 'C', '3': 'C', '4': 'C'}
         assert client.modes == expected
 
     def test_modes_setter(self, client):
-        expected = {'1':'C', '2':'E', '3':'H', '4':'A'}
-        client.modes = {'2':'E', '3':'H', '4':'A'}
+        expected = {'1': 'C', '2': 'E', '3': 'H', '4': 'A'}
+        client.modes = {'2': 'E', '3': 'H', '4': 'A'}
         assert client.modes == expected
 
     def test_modes_set_error_bad_mode(self, client):
         with pytest.raises(PilotwireModesInconsistent):
-            client.modes = {'1':'Z'}
+            client.modes = {'1': 'Z'}
 
     def test_modes_set_error_bad_zone(self, client):
         with pytest.raises(PilotwireModesInconsistent):
-            client.modes = {'Z':'C'}
+            client.modes = {'Z': 'C'}
 
 
 class TestControllerProxyMethods:

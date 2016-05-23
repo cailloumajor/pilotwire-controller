@@ -27,6 +27,7 @@ class FakeServer:
 class FakePilotwireServer(FakeServer):
     pass
 
+
 class FakeServiceDiscoveryServer(FakeServer):
     pass
 

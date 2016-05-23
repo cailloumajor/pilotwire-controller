@@ -13,6 +13,7 @@ from pilotwire_controller.controller import testing, piface
 def testing_controller():
     return testing.TestingController()
 
+
 @pytest.yield_fixture
 def piface_fixture():
     patcher = patch(
