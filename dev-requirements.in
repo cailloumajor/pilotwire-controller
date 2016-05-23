@@ -4,6 +4,7 @@
 -r requirements.txt
 -r tests/reqs.txt
 
+flake8
 ipython
 pip-tools
 pylint
