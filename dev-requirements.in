@@ -2,7 +2,6 @@
 # Compiled file is to be passed to 'pip install -r' in a virtualenv.
 # Must be compiled with pip-compile.
 -r requirements.txt
--r tests/reqs.txt
 
 flake8
 ipython
