@@ -9,5 +9,5 @@ enum-compat==0.0.2        # via zeroconf
 netifaces==0.10.5
 pbr==1.10.0
 six==1.10.0               # via stevedore, zeroconf
-stevedore==1.17.1
+stevedore==1.18.0
 zeroconf==0.17.6
