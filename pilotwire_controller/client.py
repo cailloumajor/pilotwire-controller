@@ -15,15 +15,18 @@ class PilotwireModesInconsistent(Exception):
 
 class ControllerProxy:
 
-    def __init__(self, zeroconf_timeout=None):
+    def __init__(self, ip_port=None, zeroconf_timeout=None):
         self.zeroconf_timeout = zeroconf_timeout
+        self.ip_port = ip_port
 
     @cached_property
     def _xmlrpc_client(self):
-        zeroconf_service = ServiceDiscoveryClient(self.zeroconf_timeout)
-        return ServerProxy(
-            'http://{s.address}:{s.port}/'.format(s=zeroconf_service)
-        )
+        if self.ip_port is None:
+            zeroconf_service = ServiceDiscoveryClient(self.zeroconf_timeout)
+            uri = 'http://{s.address}:{s.port}/'.format(s=zeroconf_service)
+        else:
+            uri = 'http://{}/'.format(self.ip_port)
+        return ServerProxy(uri)
 
     @property
     def modes(self):
@@ -47,17 +50,21 @@ class ControllerProxy:
         try:
             result = self.test()
         except ZeroconfServiceNotFound:
-            return 'service_not_found'
+            status = 'service_not_found'
         except ConnectionError:
-            return 'connection_error'
+            status = 'connection_error'
+        except OSError:
+            status = 'unreachable'
         except XMLRPCFault:
-            return 'xml-rpc_error'
+            status = 'xml-rpc_error'
         except Exception:
-            return 'unknown_error'
+            status = 'unknown_error'
         else:
             if result is True:
-                return 'active'
+                status = 'active'
             else:
-                return 'unknown_status'
+                status = 'unknown_status'
         finally:
             socket.setdefaulttimeout(None)
+
+        return status

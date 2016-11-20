@@ -36,7 +36,7 @@ def server():
 
 @pytest.yield_fixture
 def client(server):
-    cln = ControllerProxy(500)
+    cln = ControllerProxy(zeroconf_timeout=500)
     yield cln
     del cln
 
@@ -74,6 +74,10 @@ class TestControllerProxyMethods:
         client.test()
         server.stop()
         assert client.check_status() == 'connection_error'
+
+    def test_unreachable_status(self):
+        client = ControllerProxy('127.0.0.0:8888')
+        assert client.check_status() == 'unreachable'
 
     def test_xml_rpc_error_status(self, client):
         client.test = MethodType(lambda s: s._xmlrpc_client.zest(), client)
