@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-import pifacedigitalio
+import pifacedigitalio  # pylint: disable=import-error
 
 from .base import BaseController
 

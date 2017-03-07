@@ -2,11 +2,13 @@
 # pylint: disable=protected-access, redefined-outer-name, unused-argument
 # pylint: disable=no-self-use
 
-from unittest.mock import patch, PropertyMock
+import sys
+from unittest.mock import Mock, patch, PropertyMock
 
 import pytest
 
-from pilotwire_controller.controller import testing, piface
+sys.modules['pifacedigitalio'] = Mock()
+from pilotwire_controller.controller import testing, piface  # noqa
 
 
 @pytest.fixture
