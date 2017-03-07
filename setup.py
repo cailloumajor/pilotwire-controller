@@ -1,12 +1,10 @@
 # -*- coding: utf-8 -*-
 
-import os
 from setuptools import setup
 
 
-os.environ['PBR_VERSION'] = '0.7.1'
-
 setup(
-    setup_requires=['pbr'],
+    setup_requires=['pbr', 'setuptools_scm'],
     pbr=True,
+    use_scm_version=True,
 )

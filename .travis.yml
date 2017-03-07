@@ -1,0 +1,22 @@
+language: python
+
+python:
+  - "3.5"
+
+install:
+  - pip install -e .
+  - pip install -r dev-requirements.txt
+  - pip install coveralls
+
+script: pytest
+
+after_success: coveralls
+
+deploy:
+  provider: pypi
+  user: cailloumajor
+  password:
+    secure: "TG/jpQuRObs98H+PIs5jp8fr//2JiGQqKfd1byIBGepWzibwgfHMfLne0lf327Fl/KXeteTIfMRpxWSuAZCL/c520C/2r3C5tbHFo1/ZcQioxkUUm4hHX+cjHN8Di9BKVkseclu4GYyyyShvTEP8tk9bfKvE6bZANALqLG35jTeVtLC8kVOMBvj+TFXCj43s0+wl+//uNcZDJV9B980oALlb2cpuWpgX6p46GiLk3aY3eTB12amkwko5YhzkQXgCJa0Yfz5bOuzMSd6L+dJypd5+Kn5BCksgbIUqsMhKdVsApDqVpmUq5Sltkm8lXWE2fEHFpTGuHQ6qj5LdKGYDjg6KykzyHDsqesnfP/J8LGDZl224FHESi7pnlz7xnipbSV8U2zZwWHtmujK92DLGHGtbBBBZFLRa0Qvfk8MXWmtaXHoeAuaS0UBZDhG7ASuAHoruPZGj9x/ZWT+LJsWBquUJDPZNuEQDCJe4tZv0OXWsmGqKVHy6FQ2sAti0xj4mG6o/N3oQi12/3Pjx0wmmhptz4sknJcMTA3nIJQajx9ftojDUNYRX/yrNTqy2e7/lfmeNrDpgEQ8MIuNRWD1agugIWTZqTPUxEsSN3NMnMU+XGNfMJk4s4F0RA46qbDTKctVTXgR5MOaaTaDnB07tNyfwF6y9x1VxjOTw9Dx0nug="
+  distributions: "sdist bdist_wheel"
+  on:
+    tags: true
