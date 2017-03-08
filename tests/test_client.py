@@ -9,14 +9,22 @@ import pytest
 
 from pilotwire_controller.client import ControllerProxy, \
     PilotwireModesInconsistent
-from pilotwire_controller import daemon
+from pilotwire_controller.server import PilotwireServer
+from pilotwire_controller.zeroconf import ServiceDiscoveryServer
+# from pilotwire_controller import daemon
+
+
+def run_daemon():
+    server = PilotwireServer(8888, False, 'test')
+    zeroconf = ServiceDiscoveryServer(8888)
+    zeroconf.start()
+    server.start()
 
 
 class Server:
 
     def __init__(self):
-        self.process = Process(
-            target=daemon.run, kwargs=dict(controller_type='test'))
+        self.process = Process(target=run_daemon)
 
     def start(self):
         self.process.start()
