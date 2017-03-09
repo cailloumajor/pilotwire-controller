@@ -9,12 +9,11 @@ from .zeroconf import ServiceDiscoveryServer
 
 def _init_logging(debug):
     lvl = 'DEBUG' if debug else 'INFO'
-    for logger_name in ('stevedore', 'zeroconf'):
-        logger = logging.getLogger(logger_name)
-        logger.setLevel(lvl)
-        handler = logging.StreamHandler()
-        handler.setLevel(lvl)
-        logger.addHandler(handler)
+    logger = logging.getLogger('zeroconf')
+    logger.setLevel(lvl)
+    handler = logging.StreamHandler()
+    handler.setLevel(lvl)
+    logger.addHandler(handler)
 
 
 def parse_args(args=None):
@@ -33,7 +32,7 @@ def main():
 
     _init_logging(args.debug)
 
-    server = PilotwireServer(args.port, args.debug, 'piface')
+    server = PilotwireServer(args.port, args.debug)
     zeroconf = ServiceDiscoveryServer(args.port)
 
     atexit.register(server.stop)

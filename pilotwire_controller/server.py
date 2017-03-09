@@ -2,7 +2,7 @@
 
 from xmlrpc.server import SimpleXMLRPCServer
 
-from stevedore.driver import DriverManager
+from .controller.piface import PiFaceController as Controller
 
 
 class XMLRPCMethods:
@@ -24,14 +24,9 @@ class XMLRPCMethods:
 
 class PilotwireServer:
 
-    def __init__(self, port, debug, controller_name):
+    def __init__(self, port, debug):
         self.xmlrpc_server = SimpleXMLRPCServer(('', port), logRequests=debug)
-        manager = DriverManager(
-            namespace='pilotwire.controller',
-            name=controller_name,
-            invoke_on_load=True,
-        )
-        self.controller = manager.driver
+        self.controller = Controller()
         self.xmlrpc_server.register_instance(XMLRPCMethods(self.controller))
 
     def start(self):

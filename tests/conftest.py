@@ -1,6 +1,14 @@
 # -*- coding: utf-8 -*-
 
+import sys
+from unittest.mock import Mock
+
 import pytest
+
+from pilotwire_controller.controller.base import BaseController
+
+
+sys.modules['pifacedigitalio'] = Mock()
 
 
 OUTPUT_TO_MODES = [
@@ -27,3 +35,26 @@ def pytest_generate_tests(metafunc):
 @pytest.fixture
 def patch_zeroconf_name(monkeypatch):
     monkeypatch.setattr('pilotwire_controller.zeroconf.NAME', 'Test')
+
+
+class TestingController(BaseController):
+
+    def __init__(self):
+        self._out = 0
+
+    @property
+    def output_value(self):
+        return self._out
+
+    @output_value.setter
+    def output_value(self, val):
+        self._out = val
+
+
+@pytest.fixture
+def test_controller(monkeypatch):
+    monkeypatch.setattr(
+        'pilotwire_controller.server.Controller',
+        TestingController
+    )
+    return TestingController()

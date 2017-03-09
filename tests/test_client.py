@@ -11,11 +11,13 @@ from pilotwire_controller.client import ControllerProxy, \
     PilotwireModesInconsistent
 from pilotwire_controller.server import PilotwireServer
 from pilotwire_controller.zeroconf import ServiceDiscoveryServer
-# from pilotwire_controller import daemon
+
+
+pytestmark = pytest.mark.usefixtures('test_controller')
 
 
 def run_daemon():
-    server = PilotwireServer(8888, False, 'test')
+    server = PilotwireServer(8888, False)
     zeroconf = ServiceDiscoveryServer(8888)
     zeroconf.start()
     server.start()

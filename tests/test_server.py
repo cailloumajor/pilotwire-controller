@@ -9,9 +9,12 @@ import pytest
 from pilotwire_controller.server import PilotwireServer
 
 
+pytestmark = pytest.mark.usefixtures('test_controller')
+
+
 @pytest.yield_fixture
 def server():
-    srv = PilotwireServer(0, False, 'test')
+    srv = PilotwireServer(0, False)
     thread = Thread(target=srv.start)
     thread.start()
     yield srv

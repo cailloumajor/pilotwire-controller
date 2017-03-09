@@ -2,5 +2,4 @@
 # Must be compiled with pip-compile.
 cached-property
 netifaces
-stevedore
 zeroconf

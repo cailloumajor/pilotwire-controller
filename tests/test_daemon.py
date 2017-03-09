@@ -44,10 +44,10 @@ def test_port_argument(args, expected):
 
 
 @pytest.mark.parametrize('args,output', [
-    ([], ("(8888, False, 'piface')", '{}', "(8888,)", '{}')),
-    (['-d'], ("(8888, True, 'piface')", '{}', "(8888,)", '{}')),
-    (['-p', '1234'], ("(1234, False, 'piface')", '{}', "(1234,)", '{}')),
-    (['-d', '-p', '5678'], ("(5678, True, 'piface')", '{}', "(5678,)", '{}')),
+    ([], ("(8888, False)", '{}', "(8888,)", '{}')),
+    (['-d'], ("(8888, True)", '{}', "(8888,)", '{}')),
+    (['-p', '1234'], ("(1234, False)", '{}', "(1234,)", '{}')),
+    (['-d', '-p', '5678'], ("(5678, True)", '{}', "(5678,)", '{}')),
 ])
 def test_faked_daemon(args, output):
     cmd = ['python', 'tests/faked_daemon_stub.py']
