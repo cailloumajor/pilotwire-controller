@@ -1,8 +1,11 @@
 # -*- coding: utf-8 -*-
 
 import pprint
+import sys
+from unittest.mock import Mock
 
-from pilotwire_controller import daemon
+sys.modules['pifacedigitalio'] = Mock()
+from pilotwire_controller import daemon  # noqa
 
 
 class FakeServer:

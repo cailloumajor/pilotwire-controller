@@ -2,18 +2,11 @@
 # pylint: disable=protected-access, redefined-outer-name, unused-argument
 # pylint: disable=no-self-use
 
-import sys
-from unittest.mock import Mock, patch, PropertyMock
+from unittest.mock import patch, PropertyMock
 
 import pytest
 
-sys.modules['pifacedigitalio'] = Mock()
-from pilotwire_controller.controller import testing, piface  # noqa
-
-
-@pytest.fixture
-def testing_controller():
-    return testing.TestingController()
+from pilotwire_controller.controller import piface
 
 
 @pytest.yield_fixture
@@ -31,13 +24,13 @@ def piface_fixture():
 
 class TestBaseController:
 
-    def test_base_mode_dict_getter(self, testing_controller, output, modes):
-        testing_controller._out = output
-        assert testing_controller.modes_dict == modes
+    def test_base_mode_dict_getter(self, test_controller, output, modes):
+        test_controller._out = output
+        assert test_controller.modes_dict == modes
 
-    def test_base_mode_dict_setter(self, testing_controller, modes, output):
-        testing_controller.modes_dict = modes
-        assert testing_controller._out == output
+    def test_base_mode_dict_setter(self, test_controller, modes, output):
+        test_controller.modes_dict = modes
+        assert test_controller._out == output
 
 
 class TestPiFaceController:

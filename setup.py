@@ -4,7 +4,6 @@ from setuptools import setup
 
 
 setup(
-    setup_requires=['pbr', 'setuptools_scm'],
+    setup_requires=['pbr'],
     pbr=True,
-    use_scm_version=True,
 )
