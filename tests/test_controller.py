@@ -1,6 +1,3 @@
-# pylint: disable=protected-access, redefined-outer-name, unused-argument
-# pylint: disable=no-self-use
-
 from unittest.mock import patch, PropertyMock
 
 import pytest
