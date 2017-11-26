@@ -29,7 +29,7 @@ class PiFaceController:
 
     @modes.setter
     def modes(self, modes_str):
-        binaries = [BINARY_MODE[m] for m in modes_str]
+        binaries = [BINARY_MODE.get(m, '00') for m in modes_str]
         bitpairs = [int(b, 2) for b in binaries]
         out_port = sum([v << (i * 2) for i, v in enumerate(bitpairs)])
         self._piface.output_port.value = out_port

@@ -1,42 +1,31 @@
-from unittest.mock import patch, PropertyMock
-
 import pytest
 
-from pilotwire_controller import piface
+from pilotwire_controller.piface import PiFaceController
 
 
-@pytest.yield_fixture
-def piface_fixture():
-    patcher = patch(
-        '{}.pifacedigitalio.PiFaceDigital'.format(
-            piface.PiFaceController.__module__))
-    patcher.start()
-    controller = piface.PiFaceController()
-    mock_out_value = PropertyMock()
-    type(controller._piface.output_port).value = mock_out_value
-    yield {'controller': controller, 'output_port': mock_out_value}
-    patcher.stop()
+def test_all_off_called(piface_mock):
+    piface_mock.reset_mock()
+    controller = PiFaceController()
+    controller._piface.output_port.all_off.assert_called_once()
 
 
-class TestPiFaceController:
+@pytest.mark.parametrize('output,modes', [
+    (0, 'CCCC'),
+    (0b10011100, 'CEHA'),
+    (0b100000000, 'CCCC'),
+])
+def test_piface_modes_getter(output, modes):
+    controller = PiFaceController()
+    controller._piface.output_port.value = output
+    assert controller.modes == modes
 
-    def test_piface_all_off_called(self, piface_fixture):
-        all_off = piface_fixture['controller']._piface.output_port.all_off
-        all_off.assert_called_once_with()
 
-    @pytest.mark.parametrize('output,modes', [
-        (0, 'CCCC'),
-        (0b10011100, 'CEHA'),
-        (0b100000000, 'CCCC'),
-    ])
-    def test_piface_modes_getter(self, piface_fixture, output, modes):
-        piface_fixture['output_port'].return_value = output
-        assert piface_fixture['controller'].modes == modes
-
-    @pytest.mark.parametrize('modes,output', [
-        ('', 0),
-        ('CEHA', 0b10011100),
-    ])
-    def test_piface_modes_setter(self, piface_fixture, modes, output):
-        piface_fixture['controller'].modes = modes
-        piface_fixture['output_port'].assert_called_with(output)
+@pytest.mark.parametrize('modes,output', [
+    ('', 0),
+    ('CEHA', 0b10011100),
+    ('____', 0)
+])
+def test_piface_modes_setter(modes, output):
+    controller = PiFaceController()
+    controller.modes = modes
+    assert controller._piface.output_port.value == output
