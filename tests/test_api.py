@@ -1,0 +1,81 @@
+import json
+
+import pytest
+
+from pilotwire_controller import api
+
+
+class TestingController:
+
+    MODES = ''
+
+    @property
+    def modes(self):
+        return self.MODES
+
+    @modes.setter
+    def modes(self, modes_str):
+        self.MODES = modes_str
+
+
+@pytest.fixture
+def patch_controller(monkeypatch):
+    monkeypatch.setattr(__name__ + '.api.PiFaceController', TestingController)
+
+
+@pytest.fixture
+def client():
+    api.app.testing = True
+    return api.app.test_client()
+
+
+def test_get_controller():
+    with api.app.app_context():
+        assert api.get_controller() is api.get_controller()
+
+
+@pytest.mark.usefixtures('patch_controller')
+class TestModesEndpoint:
+
+    def test_modes_get(self, client):
+        TestingController.MODES = 'ABCD'
+        rv = client.get('/modes')
+        assert json.loads(rv.data) == {'modes': 'ABCD'}
+
+    def test_modes_put_with_empty_data(self, client):
+        rv = client.put('/modes', data={})
+        assert rv.status_code == 400
+        assert json.loads(rv.data) == {
+            'modes': ["Missing data for required field."]
+        }
+
+    def test_modes_put_with_too_short_data(self, client):
+        rv = client.put('/modes', data={'modes': 'CEH'})
+        assert rv.status_code == 400
+        assert json.loads(rv.data) == {
+            'modes': ["Must have four characters."]
+        }
+
+    def test_modes_put_with_too_long_data(self, client):
+        rv = client.put('/modes', data={'modes': 'CEHA_'})
+        assert rv.status_code == 400
+        assert json.loads(rv.data) == {
+            'modes': ["Must have four characters."]
+        }
+
+    def test_modes_put_with_invalid_modes(self, client):
+        rv = client.put('/modes', data={'modes': '+-*/'})
+        assert rv.status_code == 400
+        assert json.loads(rv.data) == {
+            'modes': ["Each mode must be one of 'C', 'E', 'H', 'A' or '_'."]
+        }
+
+    def test_modes_put_good(self, client):
+        rv = client.put('/modes', data={'modes': 'CEHA'})
+        assert rv.status_code == 200
+        assert rv.data == b"Modes set on pilotwire controller: CEHA"
+
+    def test_modes_put_good_with_underscores(self, client):
+        rv = client.put('/modes', data={'modes': '____'})
+        assert rv.status_code == 200
+        assert rv.data == b"Modes set on pilotwire controller: ____"
