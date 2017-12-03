@@ -1,13 +1,6 @@
 # Dockerfile for running pilotwire-controller daemon with resin.io
 FROM resin/%%RESIN_MACHINE_NAME%%-python:3.5
 
-# Install pifacedigitalio
-RUN apt-get update \
-    && apt-get install -qy \
-       python3-pifacedigitalio \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
-
 WORKDIR /usr/src/app
 
 COPY Pipfile Pipfile.lock ./

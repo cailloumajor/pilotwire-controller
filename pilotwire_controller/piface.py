@@ -1,4 +1,4 @@
-import pifacedigitalio  # pylint: disable=import-error
+import pifacedigitalio
 
 
 BINARY_MODE = {
