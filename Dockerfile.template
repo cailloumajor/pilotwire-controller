@@ -10,9 +10,11 @@ RUN apt-get update \
 
 WORKDIR /usr/src/app
 
-COPY requirements.txt ./
+COPY Pipfile Pipfile.lock ./
 
-RUN pip install -r requirements.txt
+RUN set -ex \
+    && pip install --upgrade pipenv \
+    && pipenv install --deploy --system
 
 COPY pilotwire_controller ./pilotwire_controller
 
@@ -20,4 +22,6 @@ RUN python -m compileall pilotwire_controller
 
 ENV INITSYSTEM on
 
-CMD ["python", "-m", "pilotwire_controller.daemon"]
+ENV FLASK_APP pilotwire_controller/api.py
+
+CMD [ "flask", "run" ]
