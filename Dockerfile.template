@@ -1,5 +1,5 @@
 # Dockerfile for running pilotwire-controller daemon with resin.io
-FROM resin/%%RESIN_MACHINE_NAME%%-python:3.5
+FROM resin/%%RESIN_MACHINE_NAME%%-alpine-python:3.6
 
 WORKDIR /usr/src/app
 
