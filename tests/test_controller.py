@@ -3,12 +3,6 @@ import pytest
 from pilotwire_controller.piface import PiFaceController
 
 
-def test_all_off_called(piface_mock):
-    piface_mock.reset_mock()
-    controller = PiFaceController()
-    controller._piface.output_port.all_off.assert_called_once()
-
-
 @pytest.mark.parametrize('output,modes', [
     (0, 'CCCC'),
     (0b10011100, 'CEHA'),

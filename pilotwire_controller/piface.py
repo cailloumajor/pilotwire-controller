@@ -14,7 +14,6 @@ class PiFaceController:
 
     def __init__(self):
         self._piface = pifacedigitalio.PiFaceDigital()
-        self._piface.output_port.all_off()
 
     @property
     def modes(self):
