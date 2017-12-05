@@ -20,18 +20,13 @@ class TestingController:
 
 @pytest.fixture
 def patch_controller(monkeypatch):
-    monkeypatch.setattr(__name__ + '.api.PiFaceController', TestingController)
+    monkeypatch.setattr(__name__ + '.api.controller', TestingController())
 
 
 @pytest.fixture
 def client():
     api.app.testing = True
     return api.app.test_client()
-
-
-def test_get_controller():
-    with api.app.app_context():
-        assert api.get_controller() is api.get_controller()
 
 
 @pytest.mark.usefixtures('patch_controller')

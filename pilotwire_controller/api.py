@@ -1,20 +1,13 @@
 import json
 
-from flask import Flask, g, request
+from flask import Flask, request
 from marshmallow import fields, Schema, validates, ValidationError
 
 from .piface import PiFaceController
 
 
 app = Flask(__name__)
-
-
-def get_controller():
-    controller = getattr(g, 'controller', None)
-    if controller is None:
-        controller = PiFaceController()
-        g.controller = controller
-    return controller
+controller = PiFaceController()
 
 
 class ModesSchema(Schema):
@@ -35,13 +28,11 @@ modes_schema = ModesSchema()
 
 @app.route('/modes')
 def get_modes():
-    controller = get_controller()
     return modes_schema.dumps(controller)
 
 
 @app.route('/modes', methods=['PUT'])
 def set_modes():
-    controller = get_controller()
     data, errors = modes_schema.load(request.form)
     if errors:
         return json.dumps(errors), 400
