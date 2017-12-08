@@ -13,3 +13,9 @@ install:
 script: pipenv run pytest
 
 after_success: coveralls
+
+deploy:
+  provider: script
+  script: ./resin-deploy.sh
+  on:
+    tags: true
