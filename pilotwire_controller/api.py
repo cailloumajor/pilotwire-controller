@@ -17,9 +17,9 @@ class ModesSchema(Schema):
     def validate_modes(self, value):
         if not len(value) == 4:
             raise ValidationError("Must have four characters.")
-        if not all([m in ['C', 'E', 'H', 'A', '_'] for m in value]):
+        if not all([m in ['C', 'E', 'H', 'A'] for m in value]):
             raise ValidationError(
-                "Each mode must be one of 'C', 'E', 'H', 'A' or '_'."
+                "Each mode must be one of 'C', 'E', 'H', 'A'."
             )
 
 

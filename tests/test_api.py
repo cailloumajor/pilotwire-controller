@@ -52,7 +52,7 @@ class TestModesEndpoint:
         }
 
     def test_modes_put_with_too_long_data(self, client):
-        rv = client.put('/modes', data={'modes': 'CEHA_'})
+        rv = client.put('/modes', data={'modes': 'CEHAC'})
         assert rv.status_code == 400
         assert json.loads(rv.data) == {
             'modes': ["Must have four characters."]
@@ -62,15 +62,10 @@ class TestModesEndpoint:
         rv = client.put('/modes', data={'modes': '+-*/'})
         assert rv.status_code == 400
         assert json.loads(rv.data) == {
-            'modes': ["Each mode must be one of 'C', 'E', 'H', 'A' or '_'."]
+            'modes': ["Each mode must be one of 'C', 'E', 'H', 'A'."]
         }
 
     def test_modes_put_good(self, client):
         rv = client.put('/modes', data={'modes': 'CEHA'})
         assert rv.status_code == 200
         assert rv.data == b"Modes set on pilotwire controller: CEHA"
-
-    def test_modes_put_good_with_underscores(self, client):
-        rv = client.put('/modes', data={'modes': '____'})
-        assert rv.status_code == 200
-        assert rv.data == b"Modes set on pilotwire controller: ____"
