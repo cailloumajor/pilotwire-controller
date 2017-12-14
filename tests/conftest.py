@@ -2,8 +2,6 @@ import random
 import sys
 from unittest.mock import Mock
 
-import pytest
-
 
 mock = Mock()
 sys.modules['pifacedigitalio'] = mock
@@ -17,8 +15,3 @@ def pytest_generate_tests(metafunc):
             for k in range(1, 5)
         ]
         metafunc.parametrize('good_modes_str', modes_strings)
-
-
-@pytest.fixture
-def piface_mock():
-    return mock
