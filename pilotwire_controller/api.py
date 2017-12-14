@@ -10,7 +10,7 @@ app = Flask(__name__)
 controller = PiFaceController()
 
 
-class ModesSchema(Schema):
+class PilotwireSchema(Schema):
     modes = fields.String(required=True)
 
     @validates('modes')
@@ -25,17 +25,17 @@ class ModesSchema(Schema):
             )
 
 
-modes_schema = ModesSchema()
+pilotwire_schema = PilotwireSchema()
 
 
-@app.route('/modes')
-def get_modes():
-    return modes_schema.dumps(controller)
+@app.route('/pilotwire')
+def get_pilotwire():
+    return pilotwire_schema.dumps(controller)
 
 
-@app.route('/modes', methods=['PUT'])
-def set_modes():
-    data, errors = modes_schema.load(request.form)
+@app.route('/pilotwire', methods=['PUT'])
+def set_pilotwire():
+    data, errors = pilotwire_schema.load(request.form)
     if errors:
         return json.dumps(errors), 400
     controller.modes = data['modes']
