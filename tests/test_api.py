@@ -5,37 +5,20 @@ import pytest
 from pilotwire_controller import api
 
 
-class TestingController:
-
-    MODES = ''
-
-    @property
-    def modes(self):
-        return self.MODES
-
-    @modes.setter
-    def modes(self, modes_str):
-        self.MODES = modes_str
-
-
-@pytest.fixture
-def patch_controller(monkeypatch):
-    monkeypatch.setattr(__name__ + '.api.controller', TestingController())
-
-
 @pytest.fixture
 def client():
     api.app.testing = True
     return api.app.test_client()
 
 
-@pytest.mark.usefixtures('patch_controller')
 class TestModesEndpoint:
 
     def test_modes_get(self, client):
-        TestingController.MODES = 'ABCD'
+        api.controller.modes = 'ACHE'
         rv = client.get('/modes')
-        assert json.loads(rv.data) == {'modes': 'ABCD'}
+        assert json.loads(rv.data) == {
+            'modes': 'ACHE',
+        }
 
     def test_modes_put_with_empty_data(self, client):
         rv = client.put('/modes', data={})
@@ -70,5 +53,5 @@ class TestModesEndpoint:
         assert rv.status_code == 200
         assert rv.data == (
             b"Modes set on pilotwire controller: %b" %
-            good_modes_str.encode('utf8')
+            '{:C<4}'.format(good_modes_str).encode('utf8')
         )

@@ -1,10 +1,13 @@
 import random
 import sys
+import types
 from unittest.mock import Mock
 
 
-mock = Mock()
-sys.modules['pifacedigitalio'] = mock
+module_name = 'pifacedigitalio'
+mocked = types.ModuleType(module_name)
+sys.modules[module_name] = mocked
+mocked.PiFaceDigital = Mock(name=module_name+'.PiFaceDigital')
 
 
 def pytest_generate_tests(metafunc):
