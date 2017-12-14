@@ -1,48 +1,25 @@
-# -*- coding: utf-8 -*-
-# pylint: disable=protected-access, redefined-outer-name, unused-argument
-# pylint: disable=no-self-use
-
-from unittest.mock import patch, PropertyMock
-
 import pytest
 
-from pilotwire_controller.controller import piface
+from pilotwire_controller.piface import PiFaceController
 
 
-@pytest.yield_fixture
-def piface_fixture():
-    patcher = patch(
-        '{}.pifacedigitalio.PiFaceDigital'.format(
-            piface.PiFaceController.__module__))
-    patcher.start()
-    controller = piface.PiFaceController()
-    mock_out_value = PropertyMock()
-    type(controller._piface.output_port).value = mock_out_value
-    yield {'controller': controller, 'output_port': mock_out_value}
-    patcher.stop()
+@pytest.mark.parametrize('output,modes', [
+    (0, 'CCCC'),
+    (0b10011100, 'CEHA'),
+    (0b100000000, 'CCCC'),
+])
+def test_piface_modes_getter(output, modes):
+    controller = PiFaceController()
+    controller._piface.output_port.value = output
+    assert controller.modes == modes
 
 
-class TestBaseController:
-
-    def test_base_mode_dict_getter(self, test_controller, output, modes):
-        test_controller._out = output
-        assert test_controller.modes_dict == modes
-
-    def test_base_mode_dict_setter(self, test_controller, modes, output):
-        test_controller.modes_dict = modes
-        assert test_controller._out == output
-
-
-class TestPiFaceController:
-
-    def test_piface_all_off_called(self, piface_fixture):
-        all_off = piface_fixture['controller']._piface.output_port.all_off
-        all_off.assert_called_once_with()
-
-    def test_piface_mode_dict_getter(self, piface_fixture, output, modes):
-        piface_fixture['output_port'].return_value = output
-        assert piface_fixture['controller'].modes_dict == modes
-
-    def test_piface_mode_dict_setter(self, piface_fixture, modes, output):
-        piface_fixture['controller'].modes_dict = modes
-        piface_fixture['output_port'].assert_called_with(output)
+@pytest.mark.parametrize('modes,output', [
+    ('', 0),
+    ('CEHA', 0b10011100),
+    ('____', 0)
+])
+def test_piface_modes_setter(modes, output):
+    controller = PiFaceController()
+    controller.modes = modes
+    assert controller._piface.output_port.value == output

@@ -1,5 +1,0 @@
-# Main pip requirements.
-# Must be compiled with pip-compile.
-cached-property
-netifaces
-zeroconf

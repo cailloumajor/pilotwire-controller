@@ -1,18 +1,13 @@
 # Dockerfile for running pilotwire-controller daemon with resin.io
-FROM resin/%%RESIN_MACHINE_NAME%%-python:3.5
-
-# Install pifacedigitalio
-RUN apt-get update \
-    && apt-get install -qy \
-       python3-pifacedigitalio \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
+FROM resin/%%RESIN_MACHINE_NAME%%-alpine-python:3.6
 
 WORKDIR /usr/src/app
 
-COPY requirements.txt ./
+COPY Pipfile Pipfile.lock ./
 
-RUN pip install -r requirements.txt
+RUN set -ex \
+    && pip install --upgrade pipenv \
+    && pipenv install --deploy --system
 
 COPY pilotwire_controller ./pilotwire_controller
 
@@ -20,4 +15,6 @@ RUN python -m compileall pilotwire_controller
 
 ENV INITSYSTEM on
 
-CMD ["python", "-m", "pilotwire_controller.daemon"]
+ENV FLASK_APP pilotwire_controller/api.py
+
+CMD [ "flask", "run", "--host=0.0.0.0" ]
