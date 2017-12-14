@@ -2,6 +2,7 @@ import json
 
 import pytest
 
+from pilotwire_controller import __version__ as project_version
 from pilotwire_controller import api
 
 
@@ -20,6 +21,7 @@ class TestModesEndpoint:
         rv = client.get(self.ENDPOINT)
         assert json.loads(rv.data) == {
             'modes': 'ACHE',
+            'version': project_version,
         }
 
     def test_modes_put_with_empty_data(self, client):

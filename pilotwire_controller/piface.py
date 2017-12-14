@@ -1,5 +1,7 @@
 import pifacedigitalio
 
+from . import __version__ as project_version
+
 
 BINARY_MODE = {
     'C': '00',
@@ -14,6 +16,7 @@ class PiFaceController:
 
     def __init__(self):
         self._piface = pifacedigitalio.PiFaceDigital()
+        self.version = project_version
 
     @property
     def modes(self):
