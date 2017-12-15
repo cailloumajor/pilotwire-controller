@@ -19,4 +19,4 @@ ENV INITSYSTEM on
 
 ENV FLASK_APP pilotwire_controller/api.py
 
-CMD [ "flask", "run", "--host=0.0.0.0" ]
+CMD [ "flask", "run", "--host", "0.0.0.0", "--port", "80" ]
