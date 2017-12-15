@@ -5,8 +5,10 @@ WORKDIR /usr/src/app
 
 COPY Pipfile Pipfile.lock ./
 
+ENV PIPENV_VERSION 8.3.2
+
 RUN set -ex \
-    && pip install --upgrade pipenv \
+    && pip install --upgrade "pipenv==${PIPENV_VERSION}" \
     && pipenv install --deploy --system
 
 COPY pilotwire_controller ./pilotwire_controller
