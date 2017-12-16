@@ -3,6 +3,8 @@ language: python
 python:
   - "3.6"
 
+if: tag IS blank
+
 before_install: pip install pipenv
 
 install:
