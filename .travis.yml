@@ -3,12 +3,13 @@ language: python
 python:
   - "3.6"
 
+if: tag IS blank
+
 before_install: pip install pipenv
 
 install:
   - pipenv install --dev
   - pip install coveralls
-  - pip install -e .
 
 script: pipenv run pytest
 
@@ -17,5 +18,3 @@ after_success: coveralls
 deploy:
   provider: script
   script: ./resin-deploy.sh
-  on:
-    tags: true

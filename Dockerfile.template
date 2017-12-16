@@ -5,7 +5,7 @@ WORKDIR /usr/src/app
 
 COPY Pipfile Pipfile.lock ./
 
-ENV PIPENV_VERSION 8.3.2
+ENV PIPENV_VERSION 9.0.1
 
 RUN set -ex \
     && pip install --upgrade "pipenv==${PIPENV_VERSION}" \
@@ -19,4 +19,4 @@ ENV INITSYSTEM on
 
 ENV FLASK_APP pilotwire_controller/api.py
 
-CMD [ "flask", "run", "--host=0.0.0.0" ]
+CMD [ "flask", "run", "--host", "0.0.0.0", "--port", "80" ]
