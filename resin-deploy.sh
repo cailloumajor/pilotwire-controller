@@ -14,4 +14,4 @@ chmod 0600 id_rsa
 ssh-add ./id_rsa
 cat resinkey >> ~/.ssh/known_hosts
 git remote add resin "${RESIN_REMOTE}"
-git push resin "${TRAVIS_BRANCH}":master
+git push resin master
