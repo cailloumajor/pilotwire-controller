@@ -1,6 +1,4 @@
-import json
-
-from flask import Flask, request
+from flask import Flask, jsonify, request
 from marshmallow import fields, Schema, validates, ValidationError
 
 from .piface import PiFaceController
@@ -31,13 +29,17 @@ pilotwire_schema = PilotwireSchema()
 
 @app.route('/pilotwire')
 def get_pilotwire():
-    return pilotwire_schema.dumps(controller)
+    result = pilotwire_schema.dump(controller)
+    return jsonify(result.data)
 
 
 @app.route('/pilotwire', methods=['PUT'])
 def set_pilotwire():
     data, errors = pilotwire_schema.load(request.form)
     if errors:
-        return json.dumps(errors), 400
+        return jsonify({'errors': errors}), 400
     controller.modes = data['modes']
-    return "Modes set on pilotwire controller: {}".format(controller.modes)
+    return jsonify({
+        'message': "Modes successfully set on pilotwire controller.",
+        'modes': controller.modes,
+    })
