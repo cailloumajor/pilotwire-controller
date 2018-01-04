@@ -10,7 +10,6 @@ controller = PiFaceController()
 
 class PilotwireSchema(Schema):
     modes = fields.String(required=True)
-    version = fields.String(dump_only=True)
 
     @validates('modes')
     def validate_modes(self, value):
