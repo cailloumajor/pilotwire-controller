@@ -24,31 +24,25 @@ class TestPilotwireEndpoint:
             'modes': 'ACHE',
         }
 
-    @pytest.mark.parametrize('req_data,resp_data', [
-        (
-            {},
-            {'errors': {'modes': ["Missing data for required field."]}}
-        ),
-        (
-            {'modes': ''},
-            {'errors': {'modes': ["Must have at least one character."]}}
-        ),
-        (
-            {'modes': 'CEHAC'},
-            {'errors': {'modes': ["Must have at most four characters."]}}
-        ),
-        (
-            {'modes': '+-*/'},
-            {'errors': {
-                'modes': ["Each mode must be one of 'C', 'E', 'H', 'A'."]
-            }}
-        ),
-    ])
-    def test_modes_put_error(self, client, req_data, resp_data):
-        rv = client.put(self.ENDPOINT, data=req_data)
+    def test_modes_put_missing_data_error(self, client):
+        rv = client.put(self.ENDPOINT, data={})
         assert rv.status_code == 400
         assert 'application/json' in rv.content_type
-        assert json.loads(rv.data) == resp_data
+        modes_errors = json.loads(rv.data)['errors']['modes']
+        assert len(modes_errors) == 1
+        assert modes_errors[0] == "Missing data for required field."
+
+    @pytest.mark.parametrize('req_modes', ['', '-', 'CEHAC'])
+    def test_modes_put_regexp_error(self, client, req_modes):
+        rv = client.put(self.ENDPOINT, data={'modes': req_modes})
+        assert rv.status_code == 400
+        assert 'application/json' in rv.content_type
+        modes_errors = json.loads(rv.data)['errors']['modes']
+        assert len(modes_errors) == 1
+        assert modes_errors[0] == ''.join([
+            "Modes string must match '[ACEH]{1,4}' regular expression, ",
+            f"received {req_modes!r}"
+        ])
 
     @pytest.mark.parametrize('req_modes', [
         'C', 'E', 'H', 'A', 'EC', 'AH', 'HCE', 'AAA', 'HECA'
