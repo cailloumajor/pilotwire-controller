@@ -1,9 +1,8 @@
 from flask import Flask, jsonify, request
 from flask.views import MethodView
-from marshmallow import fields, Schema, validates, ValidationError
+from marshmallow import Schema, ValidationError, fields, validates
 
 from .piface import PiFaceController
-
 
 app = Flask(__name__)
 controller = PiFaceController()

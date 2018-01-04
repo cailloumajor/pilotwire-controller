@@ -2,7 +2,6 @@ import pifacedigitalio
 
 from . import __version__ as project_version
 
-
 BINARY_MODE = {
     'C': '00',
     'E': '11',

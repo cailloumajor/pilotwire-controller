@@ -10,15 +10,16 @@ name = "pypi"
 "flake8" = "*"
 ipython = "*"
 pylama = "*"
-pylama_pylint = "*"
+pylama-pylint = "*"
 pytest = "*"
 pytest-cov = "*"
 pdbpp = "*"
+pytest-isort = "*"
 
 
 [packages]
 
-Flask = "*"
+flask = "*"
 marshmallow = "*"
 pifacedigitalio = "*"
 pifacecommon = ">=3.0.0"
