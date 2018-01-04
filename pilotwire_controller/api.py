@@ -15,6 +15,7 @@ class PilotwireSchema(Schema):
 
     @validates('modes')
     def validate_modes(self, value):
+        # pylint: disable=no-self-use
         if not len(value) > 0:
             raise ValidationError("Must have at least one character.")
         if not len(value) <= 4:
@@ -29,6 +30,7 @@ pilotwire_schema = PilotwireSchema()
 
 
 class PilotwireAPI(MethodView):
+    # pylint: disable=no-self-use
 
     def get(self):
         result = pilotwire_schema.dump(controller)
