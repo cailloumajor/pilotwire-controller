@@ -1,3 +1,5 @@
+import re
+
 from flask import Flask, jsonify, request
 from flask.views import MethodView
 from marshmallow import Schema, ValidationError, fields, validates
@@ -14,14 +16,12 @@ class PilotwireSchema(Schema):
     @validates('modes')
     def validate_modes(self, value):
         # pylint: disable=no-self-use
-        if not len(value) > 0:
-            raise ValidationError("Must have at least one character.")
-        if not len(value) <= 4:
-            raise ValidationError("Must have at most four characters.")
-        if not all([m in ['C', 'E', 'H', 'A'] for m in value]):
-            raise ValidationError(
-                "Each mode must be one of 'C', 'E', 'H', 'A'."
-            )
+        regexp = r'[ACEH]{1,4}'
+        if not re.fullmatch(regexp, value):
+            raise ValidationError(''.join([
+                f"Modes string must match {regexp!r} regular expression, ",
+                f"received {value!r}"
+            ]))
 
 
 pilotwire_schema = PilotwireSchema()
