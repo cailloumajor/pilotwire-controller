@@ -50,11 +50,14 @@ class TestPilotwireEndpoint:
         assert 'application/json' in rv.content_type
         assert json.loads(rv.data) == resp_data
 
-    def test_modes_put_good(self, client, good_modes_str):
-        rv = client.put(self.ENDPOINT, data={'modes': good_modes_str})
+    @pytest.mark.parametrize('req_modes', [
+        'C', 'E', 'H', 'A', 'EC', 'AH', 'HCE', 'AAA', 'HECA'
+    ])
+    def test_modes_put_ok(self, client, req_modes):
+        rv = client.put(self.ENDPOINT, data={'modes': req_modes})
         assert rv.status_code == 200
         assert 'application/json' in rv.content_type
         assert json.loads(rv.data) == {
             'message': "Modes successfully set on pilotwire controller.",
-            'modes': '{:C<4}'.format(good_modes_str)
+            'modes': '{:C<4}'.format(req_modes)
         }
