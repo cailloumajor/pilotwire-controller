@@ -3,15 +3,13 @@ language: python
 python:
   - "3.6"
 
-if: tag IS blank
-
 before_install: pip install pipenv
 
 install:
   - pipenv install --dev
   - pip install coveralls
 
-script: pipenv run pytest
+script: pipenv run pytest --verbose
 
 after_success: coveralls
 

@@ -1,9 +1,8 @@
 from flask import Flask, jsonify, request
 from flask.views import MethodView
-from marshmallow import fields, Schema, validates, ValidationError
+from marshmallow import Schema, ValidationError, fields, validates
 
 from .piface import PiFaceController
-
 
 app = Flask(__name__)
 controller = PiFaceController()
@@ -11,10 +10,10 @@ controller = PiFaceController()
 
 class PilotwireSchema(Schema):
     modes = fields.String(required=True)
-    version = fields.String(dump_only=True)
 
     @validates('modes')
     def validate_modes(self, value):
+        # pylint: disable=no-self-use
         if not len(value) > 0:
             raise ValidationError("Must have at least one character.")
         if not len(value) <= 4:
@@ -29,6 +28,7 @@ pilotwire_schema = PilotwireSchema()
 
 
 class PilotwireAPI(MethodView):
+    # pylint: disable=no-self-use
 
     def get(self):
         result = pilotwire_schema.dump(controller)

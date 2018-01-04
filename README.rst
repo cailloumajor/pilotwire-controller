@@ -5,8 +5,5 @@ pilotwire-controller
            :target: https://travis-ci.org/cailloumajor/pilotwire-controller
 .. image:: https://coveralls.io/repos/github/cailloumajor/pilotwire-controller/badge.svg?branch=master
            :target: https://coveralls.io/github/cailloumajor/pilotwire-controller?branch=master
-.. image:: https://gemnasium.com/cailloumajor/pilotwire-controller.svg
-           :alt: Dependency Status
-           :target: https://gemnasium.com/cailloumajor/pilotwire-controller
 
 Raspberry Pi / PiFace Digital based controller software for electrical heaters driving

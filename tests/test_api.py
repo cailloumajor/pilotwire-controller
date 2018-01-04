@@ -2,7 +2,6 @@ import json
 
 import pytest
 
-from pilotwire_controller import __version__ as project_version
 from pilotwire_controller import api
 
 
@@ -23,7 +22,6 @@ class TestPilotwireEndpoint:
         assert 'application/json' in rv.content_type
         assert json.loads(rv.data) == {
             'modes': 'ACHE',
-            'version': project_version,
         }
 
     @pytest.mark.parametrize('req_data,resp_data', [
