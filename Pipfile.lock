@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "a4b8b914898b419071b011fea4bba0bd54f5b1014750b8f155094b0c7b50d90c"
+            "sha256": "03322c4a53a4fa06ed264af23369335f5acf37211d8827927edd14ab06254da5"
         },
         "host-environment-markers": {
             "implementation_name": "cpython",
@@ -70,10 +70,12 @@
             "version": "==2.15.0"
         },
         "pifacecommon": {
-            "git": "https://github.com/piface/pifacecommon"
+            "git": "https://github.com/piface/pifacecommon",
+            "markers": "platform_machine == 'armv6l' or platform_machine == 'armv7l'"
         },
         "pifacedigitalio": {
-            "git": "https://github.com/piface/pifacedigitalio"
+            "git": "https://github.com/piface/pifacedigitalio",
+            "markers": "platform_machine == 'armv6l' or platform_machine == 'armv7l'"
         },
         "werkzeug": {
             "hashes": [
