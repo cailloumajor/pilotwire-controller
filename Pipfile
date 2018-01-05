@@ -21,8 +21,8 @@ pytest-isort = "*"
 
 flask = "*"
 marshmallow = "*"
-pifacedigitalio = "*"
-pifacecommon = ">=3.0.0"
+pifacedigitalio = { git = "https://github.com/piface/pifacedigitalio" }
+pifacecommon = { git = "https://github.com/piface/pifacecommon" }
 
 
 [requires]
