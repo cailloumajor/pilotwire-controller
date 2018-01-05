@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "13a497395282bf739cba3fb2e59b7cb3710b7ec1553a1b0776d810f002290e34"
+            "sha256": "03322c4a53a4fa06ed264af23369335f5acf37211d8827927edd14ab06254da5"
         },
         "host-environment-markers": {
             "implementation_name": "cpython",
@@ -70,16 +70,12 @@
             "version": "==2.15.0"
         },
         "pifacecommon": {
-            "hashes": [
-                "sha256:79bd7db86a624cc48422710f70892ff7b8d3475a39382da8cff931e6f72bb8c3"
-            ],
-            "version": "==4.1.2"
+            "git": "https://github.com/piface/pifacecommon",
+            "markers": "platform_machine == 'armv6l' or platform_machine == 'armv7l'"
         },
         "pifacedigitalio": {
-            "hashes": [
-                "sha256:3de827cbc58df1799d464ab3dc92a2ba99c9b521dce6aa633db21d7e015d55ed"
-            ],
-            "version": "==3.0.5"
+            "git": "https://github.com/piface/pifacedigitalio",
+            "markers": "platform_machine == 'armv6l' or platform_machine == 'armv7l'"
         },
         "werkzeug": {
             "hashes": [
@@ -360,10 +356,10 @@
         },
         "pytest": {
             "hashes": [
-                "sha256:ae4a2d0bae1098bbe938ecd6c20a526d5d47a94dc42ad7331c9ad06d0efe4962",
-                "sha256:cf8436dc59d8695346fcd3ab296de46425ecab00d64096cebe79fb51ecb2eb93"
+                "sha256:b84878865558194630c6147f44bdaef27222a9f153bbd4a08908b16bf285e0b1",
+                "sha256:53548280ede7818f4dc2ad96608b9f08ae2cc2ca3874f2ceb6f97e3583f25bc4"
             ],
-            "version": "==3.3.1"
+            "version": "==3.3.2"
         },
         "pytest-cache": {
             "hashes": [
