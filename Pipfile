@@ -21,8 +21,6 @@ pytest-isort = "*"
 
 flask = "*"
 marshmallow = "*"
-pifacedigitalio = { git = "https://github.com/piface/pifacedigitalio", markers = "platform_machine == 'armv6l' or platform_machine == 'armv7l'" }
-pifacecommon = { git = "https://github.com/piface/pifacecommon", markers = "platform_machine == 'armv6l' or platform_machine == 'armv7l'" }
 
 
 [requires]
