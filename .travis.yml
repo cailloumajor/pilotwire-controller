@@ -3,6 +3,12 @@ language: python
 python:
   - "3.6"
 
+branches:
+  except:
+    # Exclude dependabot branches push build
+    # Build is already triggered by PR
+    - /^dependabot\/.*$/
+
 before_install: pip install pipenv
 
 install:
