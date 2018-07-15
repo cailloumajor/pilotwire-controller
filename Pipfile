@@ -1,28 +1,15 @@
 [[source]]
-
-url = "https://pypi.python.org/simple"
+url = "https://pypi.org/simple"
 verify_ssl = true
 name = "pypi"
 
+[packages]
+rpyc = "*"
 
 [dev-packages]
-
-"flake8" = "*"
-ipython = "*"
-pylama = "*"
-pylama-pylint = "*"
 pytest = "*"
 pytest-cov = "*"
-pdbpp = "*"
 pytest-isort = "*"
 
-
-[packages]
-
-flask = "*"
-marshmallow = "*"
-
-
 [requires]
-
 python_version = "3.6"
