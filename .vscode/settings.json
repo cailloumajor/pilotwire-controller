@@ -1,5 +1,7 @@
 {
     "python.pythonPath": "/home/nono/.local/share/virtualenvs/pilotwire-controller-PevFJ_Eq/bin/python",
+    "python.formatting.provider": "black",
+    "editor.formatOnSave": true,
     "python.unitTest.unittestEnabled": false,
     "python.unitTest.nosetestsEnabled": false,
     "python.unitTest.pyTestEnabled": true,

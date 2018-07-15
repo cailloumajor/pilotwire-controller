@@ -10,6 +10,10 @@ rpyc = "*"
 pytest = "*"
 pytest-cov = "*"
 pytest-isort = "*"
+black = {version="*", markers="python_version >= '3.6'"}
 
 [requires]
 python_version = "3.6"
+
+[pipenv]
+allow_prereleases = true
