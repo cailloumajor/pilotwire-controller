@@ -1,3 +1,4 @@
+# pylint: disable=protected-access
 import pytest
 
 from pilotwire_controller.piface import PiFaceController
