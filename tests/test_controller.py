@@ -13,7 +13,9 @@ def test_piface_modes_getter(output, modes):
     assert controller.modes == modes
 
 
-@pytest.mark.parametrize("modes,output", [("", 0), ("CEHA", 0b10011100), ("____", 0)])
+@pytest.mark.parametrize(
+    "modes,output", [("", 0), ("CEHA", 0b10011100), ("____", 0), ("EEEEE", 0b11111111)]
+)
 def test_piface_modes_setter(modes, output):
     controller = PiFaceController()
     controller.modes = modes
