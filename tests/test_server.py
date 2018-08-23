@@ -2,7 +2,7 @@
 import pytest
 import rpyc
 
-from pilotwire_controller.server import PilotwireControllerService
+from pilotwire_controller.server import PilotwireControllerService, main as server_main
 
 
 @pytest.fixture
@@ -27,3 +27,11 @@ def test_set_modes(rpyc_service):
     assert rpyc_service.controller.modes != modes
     rpyc_service.set_modes(modes)
     assert rpyc_service.controller.modes == modes
+
+
+def test_server_arguments(mocker):
+    args = {"arg1": "val1", "arg2": 2, "arg3": 3.0}
+    patched = mocker.patch("pilotwire_controller.server.rpyc.ThreadedServer")
+    server_main(**args)
+    _, kwargs = patched.call_args
+    assert kwargs == args

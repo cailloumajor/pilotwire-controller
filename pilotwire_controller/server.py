@@ -1,3 +1,4 @@
+import fire
 import rpyc
 
 from pilotwire_controller.piface import PiFaceController
@@ -16,6 +17,10 @@ class PilotwireControllerService(rpyc.Service):
         self.controller.modes = modes
 
 
-if __name__ == "__main__":
-    server = rpyc.ThreadedServer(PilotwireControllerService(), port=17171)
+def main(**kwargs):
+    server = rpyc.ThreadedServer(PilotwireControllerService(), **kwargs)
     server.start()
+
+
+if __name__ == "__main__":
+    fire.Fire(main)
