@@ -1,3 +1,5 @@
+import logging
+
 import fire
 import rpyc
 
@@ -18,6 +20,7 @@ class PilotwireControllerService(rpyc.Service):
 
 
 def main(**kwargs):
+    logging.basicConfig(level=logging.DEBUG)
     server = rpyc.ThreadedServer(PilotwireControllerService(), **kwargs)
     server.start()
 
