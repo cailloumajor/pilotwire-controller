@@ -1,6 +1,5 @@
 import logging
 
-import fire
 import rpyc
 
 from pilotwire_controller.piface import PiFaceController
@@ -23,7 +22,3 @@ def main(**kwargs):
     logging.basicConfig(level=logging.DEBUG)
     server = rpyc.ThreadedServer(PilotwireControllerService(), **kwargs)
     server.start()
-
-
-if __name__ == "__main__":
-    fire.Fire(main)
