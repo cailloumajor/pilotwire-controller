@@ -24,16 +24,16 @@ RUN set -ex \
     && pip${PYTHON_VER} install --upgrade pip \
     && pip${PYTHON_VER} install pipenv
 
-WORKDIR /usr/src/app
-COPY Pipfile Pipfile.lock ./
-RUN pipenv install --deploy --system
-
 ARG PIFACECOMMON_REF=ff3cd937b7da2e8b60ebde65457c089427661812
 ARG PIFACEDIGITALIO_REF=d231a82bdb55d5f57f44ba7aec00bfd6c0b9a9d4
 RUN set -ex \
     && pip${PYTHON_VER} install \
         "git+https://github.com/piface/pifacecommon@${PIFACECOMMON_REF}#egg=pifacecommon" \
         "git+https://github.com/piface/pifacedigitalio@${PIFACEDIGITALIO_REF}#egg=pifacedigitalio"
+
+WORKDIR /usr/src/app
+COPY Pipfile Pipfile.lock ./
+RUN pipenv install --deploy --system
 
 COPY ./ .
 RUN python${PYTHON_VER} -m compileall pilotwire_controller
