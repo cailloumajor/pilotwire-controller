@@ -6,6 +6,7 @@ name = "pypi"
 [packages]
 rpyc = "*"
 fire = "*"
+cached-property = "*"
 
 [dev-packages]
 black = {version="*", markers="python_version >= '3.6'"}
