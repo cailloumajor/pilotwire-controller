@@ -265,6 +265,18 @@ six = ">=1.10.0"
 
 [[package]]
 category = "dev"
+description = "A pytest plugin to enable format checking with black"
+name = "pytest-black"
+optional = false
+python-versions = ">=3.6"
+version = "0.3.2"
+
+[package.dependencies]
+black = "18.9b0"
+pytest = ">=3.5.0"
+
+[[package]]
+category = "dev"
 description = "Pytest plugin for measuring coverage."
 name = "pytest-cov"
 optional = false
@@ -368,7 +380,7 @@ python-versions = "*"
 version = "1.10.11"
 
 [metadata]
-content-hash = "0a3c826dbe86bfb40575b5abc7aadcb1ab16fc3c50682a74438b1806c03db68f"
+content-hash = "0eff01c3c9002c93ee54c5bcf716fe8b6d8258acab05907482c8a60395b892a9"
 python-versions = "~3.6"
 
 [metadata.hashes]
@@ -398,6 +410,7 @@ pycodestyle = ["74abc4e221d393ea5ce1f129ea6903209940c1ecd29e002e8c6933c2b21026e0
 pyflakes = ["9a7662ec724d0120012f6e29d6248ae3727d821bba522a0e6b356eff19126a49", "f661252913bc1dbe7fcfcbf0af0db3f42ab65aabd1a6ca68fe5d466bace94dae"]
 pylint = ["689de29ae747642ab230c6d37be2b969bf75663176658851f456619aacf27492", "771467c434d0d9f081741fec1d64dfb011ed26e65e12a28fe06ca2f61c4d556c"]
 pytest = ["f689bf2fc18c4585403348dd56f47d87780bf217c53ed9ae7a3e2d7faa45f8e9", "f812ea39a0153566be53d88f8de94839db1e8a05352ed8a49525d7d7f37861e9"]
+pytest-black = ["f5faabfb470d3fa5a56f11e15443c5fe624b8ceef03470f17a2c407bcf7912d7"]
 pytest-cov = ["513c425e931a0344944f84ea47f3956be0e416d95acbd897a44970c8d926d5d7", "e360f048b7dae3f2f2a9a4d067b2dd6b6a015d384d1577c994a43f3f7cbad762"]
 pytest-flake8 = ["4f30f5be3efb89755f38f11bdb2a5e22d19a6f5faa73428f703a3292a9572cd3", "c740ad6aa19e3958947d2118f70bed218caf1d2097039fb7318573a2a72f89a1"]
 pytest-isort = ["2221c0914dfca41914625a646f0d2d1d4c676861b9a7b26746a7fdd40aa2c59b", "c70d0f900f4647bb714f0843dd82d7f7b759904006de31254efdb72ce88e0c0e"]
