@@ -10,8 +10,8 @@ ENV PIP_DEFAULT_TIMEOUT=60 \
 
 # hadolint ignore=DL3013,DL3018
 RUN set -ex \
-    && addgroup -g 9999 resinapp \
-    && adduser -S -u 9999 -G resinapp resinapp \
+    && addgroup -g 9999 balena-app \
+    && adduser -S -u 9999 -G balena-app balena-app \
     && apk add --no-cache \
         su-exec \
         tini \

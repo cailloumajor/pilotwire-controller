@@ -103,5 +103,5 @@ venv.bak/
 # mypy
 .mypy_cache/
 
-# Resin CLI stuff
-.resin-sync.yml
+# Balena CLI stuff
+.balena-sync.yml

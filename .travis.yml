@@ -25,4 +25,4 @@ after_success: coveralls
 
 deploy:
   provider: script
-  script: ./resin-deploy.sh
+  script: ./balena-deploy.sh
