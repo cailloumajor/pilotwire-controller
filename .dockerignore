@@ -1,5 +1,6 @@
 *
-!Pipfile*
+!pyproject.toml
+!poetry.lock
 !/pilotwire_controller
 !/run_controller.py
 !/docker-entrypoint.sh

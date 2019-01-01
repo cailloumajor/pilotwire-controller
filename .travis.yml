@@ -9,13 +9,17 @@ branches:
     # Build is already triggered by PR
     - /^dependabot\/.*$/
 
-before_install: pip install pipenv
-
 install:
-  - pipenv install --dev --verbose
+  - pip install --upgrade pip
+  - >
+    curl -sSL -o /tmp/get-poetry.py
+    https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py
+  - python /tmp/get-poetry.py -y
+  - source $HOME/.poetry/env
+  - poetry install
   - pip install coveralls
 
-script: pipenv run pytest --verbose
+script: poetry run pytest --verbose
 
 after_success: coveralls
 
