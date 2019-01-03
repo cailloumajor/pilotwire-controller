@@ -2,7 +2,8 @@
 import pytest
 import rpyc
 
-from pilotwire_controller.server import PilotwireControllerService, main as server_main
+from pilotwire_controller.server import PilotwireControllerService
+from pilotwire_controller.server import main as server_main
 
 
 @pytest.fixture

@@ -261,18 +261,6 @@ six = ">=1.10.0"
 
 [[package]]
 category = "dev"
-description = "A pytest plugin to enable format checking with black"
-name = "pytest-black"
-optional = false
-python-versions = ">=3.6"
-version = "0.3.2"
-
-[package.dependencies]
-black = "18.9b0"
-pytest = ">=3.5.0"
-
-[[package]]
-category = "dev"
 description = "Pytest plugin for measuring coverage."
 name = "pytest-cov"
 optional = false
@@ -285,30 +273,6 @@ pytest = ">=2.9"
 
 [[package]]
 category = "dev"
-description = "pytest plugin to check FLAKE8 requirements"
-name = "pytest-flake8"
-optional = false
-python-versions = "*"
-version = "1.0.2"
-
-[package.dependencies]
-flake8 = ">=3.5"
-pytest = ">=3.5"
-
-[[package]]
-category = "dev"
-description = "py.test plugin to check import ordering using isort"
-name = "pytest-isort"
-optional = false
-python-versions = "*"
-version = "0.2.1"
-
-[package.dependencies]
-isort = ">=4.0"
-pytest = ">=3.0"
-
-[[package]]
-category = "dev"
 description = "Thin-wrapper around the mock package for easier use with py.test"
 name = "pytest-mock"
 optional = false
@@ -317,19 +281,6 @@ version = "1.10.0"
 
 [package.dependencies]
 pytest = ">=2.7"
-
-[[package]]
-category = "dev"
-description = "pytest plugin to check source code with pylint"
-name = "pytest-pylint"
-optional = false
-python-versions = "*"
-version = "0.13.0"
-
-[package.dependencies]
-pylint = ">=1.4.5"
-pytest = ">=2.7"
-six = "*"
 
 [[package]]
 category = "main"
@@ -367,7 +318,7 @@ python-versions = "*"
 version = "1.10.11"
 
 [metadata]
-content-hash = "f5d834a08b7e6be3435a20156755a1b09b69c1a1446cac8b2bd806c3c32ed886"
+content-hash = "efa6eca068c2a8bd3622873e33acabae3cd940618058c33b07d2a5a61c5631a3"
 python-versions = "~3.7"
 
 [metadata.hashes]
@@ -397,12 +348,8 @@ pycodestyle = ["74abc4e221d393ea5ce1f129ea6903209940c1ecd29e002e8c6933c2b21026e0
 pyflakes = ["9a7662ec724d0120012f6e29d6248ae3727d821bba522a0e6b356eff19126a49", "f661252913bc1dbe7fcfcbf0af0db3f42ab65aabd1a6ca68fe5d466bace94dae"]
 pylint = ["689de29ae747642ab230c6d37be2b969bf75663176658851f456619aacf27492", "771467c434d0d9f081741fec1d64dfb011ed26e65e12a28fe06ca2f61c4d556c"]
 pytest = ["f689bf2fc18c4585403348dd56f47d87780bf217c53ed9ae7a3e2d7faa45f8e9", "f812ea39a0153566be53d88f8de94839db1e8a05352ed8a49525d7d7f37861e9"]
-pytest-black = ["f5faabfb470d3fa5a56f11e15443c5fe624b8ceef03470f17a2c407bcf7912d7"]
 pytest-cov = ["513c425e931a0344944f84ea47f3956be0e416d95acbd897a44970c8d926d5d7", "e360f048b7dae3f2f2a9a4d067b2dd6b6a015d384d1577c994a43f3f7cbad762"]
-pytest-flake8 = ["4f30f5be3efb89755f38f11bdb2a5e22d19a6f5faa73428f703a3292a9572cd3", "c740ad6aa19e3958947d2118f70bed218caf1d2097039fb7318573a2a72f89a1"]
-pytest-isort = ["2221c0914dfca41914625a646f0d2d1d4c676861b9a7b26746a7fdd40aa2c59b", "c70d0f900f4647bb714f0843dd82d7f7b759904006de31254efdb72ce88e0c0e"]
 pytest-mock = ["53801e621223d34724926a5c98bd90e8e417ce35264365d39d6c896388dcc928", "d89a8209d722b8307b5e351496830d5cc5e192336003a485443ae9adeb7dd4c0"]
-pytest-pylint = ["50500fa8ecd7f7ca8e1d08e4c2c8748ae376a95745d3574861a86d642d9ed9b3", "5265fc9f9b8286c56535f521c8bed22d2510e54f779e161f01306e6a53390730", "605bc4eea24b15e45bc7658dabce8c6932a8e9ded765cfa4a5f5cd62db77794d"]
 rpyc = ["a0d87cbad152f25e3702a03cb7fd67f6b10c87680a60ec3aea8dca5a56307c10"]
 six = ["3350809f0555b11f552448330d0b52d5f24c91a322ea4a15ef22629740f3761c", "d16a0141ec1a18405cd4ce8b4613101da75da0e9a7aec5bdd4fa804d0e0eba73"]
 toml = ["229f81c57791a41d65e399fc06bf0848bab550a9dfd5ed66df18ce5f05e73d5c", "235682dd292d5899d361a811df37e04a8828a5b1da3115886b73cf81ebc9100e", "f1db651f9657708513243e61e6cc67d101a39bad662eaa9b5546f789338e07a3"]
