@@ -21,13 +21,14 @@ before_install:
 
 install:
   - poetry install
-  - pip install coveralls pre-commit
+  - pip install pre-commit
 
 script:
   - pre-commit run --all-files
   - poetry run pytest --verbose
 
-after_success: coveralls
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
 
 deploy:
   provider: script
