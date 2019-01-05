@@ -16,7 +16,7 @@ class PiFaceController:
         Get or set modes as a 4-character string.
         """
         out_port = self._piface.read_outputs()
-        dibits = [(out_port & (0b11 << r)) >> r for r in range(0, NZONES * 2, 2)]
+        dibits = [out_port >> r & 0b11 for r in range(0, NZONES * 2, 2)]
         modes = [MODE_FOR_DIBIT[b] for b in dibits]
         return "".join(modes)
 
