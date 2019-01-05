@@ -9,7 +9,7 @@ from pilotwire_controller.piface import PiFaceController
 )
 def test_piface_modes_getter(output, modes):
     controller = PiFaceController()
-    controller._piface.output_port.value = output
+    controller._piface.outputs = output
     assert controller.modes == modes
 
 
@@ -19,4 +19,4 @@ def test_piface_modes_getter(output, modes):
 def test_piface_modes_setter(modes, output):
     controller = PiFaceController()
     controller.modes = modes
-    assert controller._piface.output_port.value == output
+    assert controller._piface.outputs == output

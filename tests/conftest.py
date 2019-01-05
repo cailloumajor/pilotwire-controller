@@ -1,11 +1,15 @@
-import sys
-import types
-from unittest.mock import Mock
+import pytest
 
 
-module_name = "pifacedigitalio"
-mocked = types.ModuleType(module_name)
-sys.modules[module_name] = mocked
-fakepfd = Mock(name=module_name + ".PiFaceDigital")
-fakepfd.return_value.output_port.value = 0
-mocked.PiFaceDigital = fakepfd
+@pytest.fixture(autouse=True)
+def patch_piface(monkeypatch):
+    class FakePiFace:
+        outputs = 0
+
+        def read_outputs(self):
+            return self.outputs
+
+        def write(self, data):
+            self.outputs = data
+
+    monkeypatch.setattr("pifaceio.PiFace", FakePiFace)
